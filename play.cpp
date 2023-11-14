@@ -3,7 +3,6 @@
 using namespace std;
 
 int main() {
-    cout << "Hello, world" << endl;
 
     //cout << sentences[0] << endl;
     WordList p;

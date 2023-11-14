@@ -2,18 +2,18 @@
 #include <vector>
 #include<string>
 #include<cstdlib>
+#include <unordered_set>
 
 #include "WordList.h"
 #include "Sentences.h"
 using namespace std;
 
-
+// default constructor for a WordList object
 WordList::WordList() {
     string prompt = generatePrompt();
     size = prompt.length();
-    prompt_letters = vector<char> (size);
     convertStringToWordList(prompt_letters, prompt);
-    
+    printWordList();
 }
 
 // randomly generate a prompt for the user to copy using the sentences contained in sentences.cpp
@@ -21,19 +21,60 @@ string WordList::generatePrompt() {
     
     string prompt = "";
     srand((unsigned) time(NULL));
+    int sentences_in_prompt = rand() % 4 + 4; // 4-7 sentences in the prompt
+    int num_topics = sentences.size(); 
+    unordered_set<int> used_sentence_topics;
 
-    for(int i = 0 ; i < 100; i++) {
-        int randomNumber = rand();
-        cout << randomNumber << endl;
+    for(int i = 0; i < sentences_in_prompt; i++) {
+
+        int random_topic = rand() % num_topics;
+        while(used_sentence_topics.count(random_topic)) {
+            // topic already used in prompt
+            random_topic = rand() % num_topics;
+        }
+
+        int num_sentences = sentences[random_topic].size();
+        int random_sentences = rand() % num_sentences;
+        prompt += sentences[random_topic][random_sentences] + " ";
     }
-
-
-   
-
+    return prompt;
 }
 
+// converts a string to a list of chars, mainly used to convert generated prompt into WordList object
 void WordList::convertStringToWordList(vector<char>& prompt, string str) {
 
+    prompt_letters = vector<char> (size);
+    for(int i = 0; i < size; i++) {
+        prompt_letters[i] = str[i];
+    }
+}
+
+// checks a user inputted character to the inputted index of the WordList object
+bool WordList::checkCharInput(char c, int index) {
+    return c == prompt_letters[index];
+}
+
+// prints the WordList object in the form of a string
+void WordList::printWordList() {
+    
+    bool go_to_next_line = false;
+    cout << endl;
+    for(int i = 0; i < size; i++) {
+
+        if(i % 100 == 0 && i != 0){
+            go_to_next_line = true;
+        }
+
+        if(go_to_next_line == true && prompt_letters[i] == ' ') {
+            cout << endl;
+            go_to_next_line = false;
+        }
+
+        char current_letter = prompt_letters[i];
+        cout << current_letter;
+    }
+    cout << endl;
+    cout << endl;
 }
 
 

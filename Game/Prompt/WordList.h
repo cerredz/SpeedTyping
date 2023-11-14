@@ -17,6 +17,7 @@ class WordList {
         void convertStringToWordList(vector<char>& prompt, string str);
         bool checkCharInput(char c, int index);
         void printWordList();
+        
 
 };
 
