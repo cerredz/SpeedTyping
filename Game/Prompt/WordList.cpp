@@ -3,17 +3,21 @@
 #include<string>
 #include<cstdlib>
 #include <unordered_set>
+#include <windows.h>
+#include "MMSystem.h"
 
 #include "WordList.h"
 #include "Sentences.h"
 using namespace std;
+
+#pragma comment(lib, "winmm.lib")
 
 // default constructor for a WordList object
 WordList::WordList() {
     string prompt = generatePrompt();
     size = prompt.length();
     convertStringToWordList(prompt_letters, prompt);
-    printWordList();
+    playIncorrectCharInput();
 }
 
 // randomly generate a prompt for the user to copy using the sentences contained in sentences.cpp
@@ -32,7 +36,7 @@ string WordList::generatePrompt() {
             // topic already used in prompt
             random_topic = rand() % num_topics;
         }
-
+        used_sentence_topics.insert(random_topic);
         int num_sentences = sentences[random_topic].size();
         int random_sentences = rand() % num_sentences;
         prompt += sentences[random_topic][random_sentences] + " ";
@@ -54,7 +58,7 @@ bool WordList::checkCharInput(char c, int index) {
     return c == prompt_letters[index];
 }
 
-// prints the WordList object in the form of a string
+// prints the WordList object in the form of a string (100 letters per line)
 void WordList::printWordList() {
     
     bool go_to_next_line = false;
@@ -65,7 +69,7 @@ void WordList::printWordList() {
             go_to_next_line = true;
         }
 
-        if(go_to_next_line == true && prompt_letters[i] == ' ') {
+        if(i > 0 && go_to_next_line == true && prompt_letters[i - 1] == ' ') {
             cout << endl;
             go_to_next_line = false;
         }

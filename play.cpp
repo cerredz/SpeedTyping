@@ -4,8 +4,8 @@ using namespace std;
 
 int main() {
 
-    //cout << sentences[0] << endl;
-    WordList p;
-    
+    WordList prompt;
+    prompt.printWordList();
+    //g++ Game/Prompt/WordList.cpp Game/Prompt/Sentences.cpp play.cpp -o play -lwinmm
     return 0;
 }
