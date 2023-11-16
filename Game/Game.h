@@ -3,37 +3,38 @@
 
 #include <iostream>
 #include <unordered_map>
-#include <Game/Prompt/WordList.h>
-#include <Player/Player.h>
+#include "../Game/Prompt/WordList.h"
+#include "../Session/Session.h"
+using namespace std;
 
 class Game {
 
 private:
     int total_inputs;
     int total_characters_missed;
+    int total_characters_correct;
     int longest_correct_streak;
     double accuracy;
-    int typing_speed;
-    unordered_map<char, int> characters_missed; // count however many times you mistype a letter
-    unordered_map<char, int> characters_typed; // count however many times you typed a letter correctly
+    double letters_per_minute;
+    int time_taken;
 
 public:
-    Game()
-    int getTotalInput();
+    Game();
+    int getTotalInputs();
+    int getTotalCharactersCorrect();
     int getTotalCharactersMissed();
     int getLongestCorrectStreak();
-    pair<char, int> getMostFrequenctLetterMistype();
-    pair<char,int> getMostFrequentVowelMistype();
-    void incrementTotalInput();
-    void incrementTotalCharactersMissed();
-    void updateTotalCorrectStreak(int streak);
-    void updateMissedCharacter(char c);
-    void updateCorrectCharacter(char c);
-    void PlayGame(Player& player, WordList& prompt)
+    double getAccuracy();
+    double getLettersPerMinute();
+    int getTimeTaken();
+    void PlayGame(WordList& prompt, Session& session);
+    void calculateAccuracy();
+    void calculateLettersPerMinute();
+    void calculateTimeTaken();
 
 
 
-}
+};
 
 
 

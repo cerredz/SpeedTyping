@@ -5,6 +5,13 @@
     "xstring": "cpp",
     "xutility": "cpp",
     "ostream": "cpp",
-    "unordered_map": "cpp"
+    "unordered_map": "cpp",
+    "string": "cpp",
+    "iostream": "cpp",
+    "istream": "cpp",
+    "limits": "cpp",
+    "iosfwd": "cpp",
+    "ios": "cpp",
+    "chrono": "cpp"
   }
 }

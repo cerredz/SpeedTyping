@@ -17,15 +17,19 @@ WordList::WordList() {
     string prompt = generatePrompt();
     size = prompt.length();
     convertStringToWordList(prompt_letters, prompt);
-    playIncorrectCharInput();
+    
 }
 
+int WordList::getSize(){
+    return size;
+}
 // randomly generate a prompt for the user to copy using the sentences contained in sentences.cpp
 string WordList::generatePrompt() {
     
     string prompt = "";
     srand((unsigned) time(NULL));
-    int sentences_in_prompt = rand() % 4 + 4; // 4-7 sentences in the prompt
+    //int sentences_in_prompt = rand() % 4 + 4; // 4-7 sentences in the prompt
+    int sentences_in_prompt = 4; // used for debugging
     int num_topics = sentences.size(); 
     unordered_set<int> used_sentence_topics;
 
@@ -63,6 +67,7 @@ void WordList::printWordList() {
     
     bool go_to_next_line = false;
     cout << endl;
+    cout << endl;
     for(int i = 0; i < size; i++) {
 
         if(i % 100 == 0 && i != 0){
@@ -80,6 +85,16 @@ void WordList::printWordList() {
     cout << endl;
     cout << endl;
 }
+
+void WordList::printLetter(int index) {
+
+    if(((index % 100 == 0) || (index % 100 < 5)) &&  index != 0 && prompt_letters[index - 1] == ' '){
+        cout << endl;
+    }
+
+    cout << prompt_letters[index];
+}
+
 
 
 

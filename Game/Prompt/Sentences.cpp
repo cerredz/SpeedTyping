@@ -480,7 +480,7 @@ vector<string> spaceSentences = {
         "The Simpsons is a long-running animated TV show with memorable characters.",
         "Video games like Mario and Minecraft have huge fan bases.",
         "Hollywood is known for its glitzy red carpet events.",
-        "Pokémon cards and games have been popular for decades.",
+        "Pokemon cards and games have been popular for decades.",
         "Social media platforms like Facebook and Instagram connect people worldwide.",
         "The Twilight series sparked a vampire craze in young adult literature.",
         "Star Trek has a dedicated fan base known as Trekkies.",
@@ -933,7 +933,7 @@ vector<string> gamingSentences = {
 
 vector<vector<string>> sentences = {spaceSentences, natureSentences, techSentences, foodSentences, sportsSentences,
     healthSentences, schoolSentences, politicsSentences, travelSentences, popCultureSentences, gamingSentences,
-    socialMediaSentences, futureSentences, artSentences, historicalSentences, computerScienceSentences, randomSentences };
+    socialMediaSentences, futureSentences, artSentences, historicalSentences, computerScienceSentences, randomSentences }; 
 
 
 

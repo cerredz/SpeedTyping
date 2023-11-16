@@ -9,7 +9,6 @@ using namespace std;
 class WordList {
     private:
         vector<char> prompt_letters;
-
         int size;
 
     public:
@@ -18,8 +17,8 @@ class WordList {
         void convertStringToWordList(vector<char>& prompt, string str);
         bool checkCharInput(char c, int index);
         void printWordList();
-        
-        
+        void printLetter(int index);
+        int getSize();
 
 };
 
