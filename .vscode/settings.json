@@ -66,6 +66,10 @@
     "xloctime": "cpp",
     "xmemory": "cpp",
     "xstddef": "cpp",
-    "xtr1common": "cpp"
+    "xtr1common": "cpp",
+    "deque": "cpp",
+    "queue": "cpp",
+    "ranges": "cpp",
+    "span": "cpp"
   }
 }

@@ -3,12 +3,13 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <vector>
 using namespace std;
 
 class Session {
 
 private:
-    Session();
+    
     int games_played;
     int total_playtime_seconds;
     vector<int> correct_streaks;
@@ -20,7 +21,7 @@ private:
     
 
 public:
-
+    Session();
     void updateCharacterMissed(char c);
     void updateCharacterTyped(char c);
 

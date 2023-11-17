@@ -14,10 +14,11 @@ int main() {
     //g++ Game/Prompt/WordList.cpp Game/Prompt/Sentences.cpp Game/Game.cpp Session/Session.cpp play.cpp -o play
     
     game.PlayGame(prompt, session);
-    reportGameStats(session); // report game stats to the session stats
-    clearGameStats();
-    postGameOptions();
+    //reportGameStats(session); // report game stats to the session stats
+    //clearGameStats();
+   // postGameOptions();
     
-    
+    game.viewGameStats();
+    game.viewAdvancedGameStats();
     return 0;
 }

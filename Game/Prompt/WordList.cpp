@@ -88,10 +88,10 @@ void WordList::printWordList() {
 
 void WordList::printLetter(int index) {
 
-    if(((index % 100 == 0) || (index % 100 < 5)) &&  index != 0 && prompt_letters[index - 1] == ' '){
+    if(((index % 100 == 0) || (index % 100 < 5)) &&  index > 5 && prompt_letters[index - 1] == ' '){
         cout << endl;
     }
-
+    
     cout << prompt_letters[index];
 }
 

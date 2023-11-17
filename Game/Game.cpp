@@ -3,9 +3,11 @@
 #include "../Game/Prompt/WordList.h"
 #include "../Game/Game.h"
 #include <unordered_map>
-#include <priority_queue>
+#include <queue>
 #include <chrono>
 #include <conio.h>
+#include <iomanip> 
+#include <cctype>
 
 
 
@@ -15,6 +17,7 @@ using namespace std;
 Game::Game() {
 
     total_inputs = 0;
+    total_characters_correct = 0;
     total_characters_missed = 0;
     longest_correct_streak = 0;
     longest_miss_streak = 0;
@@ -58,40 +61,31 @@ int Game::getTimeTaken() {
     return time_taken;
 }
 
-// print the correct / incorrect letter data
-void Game::printLetterFrequencies() {
 
-    struct CompareChars {
-    bool operator()(const pair<char, pair<int, int>>& lhs, const pair<char, pair<int, int>>& rhs) const {
-        return lhs.first > rhs.first;  // Change > to < for min heap
-        }
-    };
-
-    priority_queue<pair<char, pair<int, int>>, vector<pair<char, pair<int, int>>>, CompareChars> sorted_letters;
-    
-    // sort the letters alphabetically
-    for(auto entry : characters_typed) {
-
+// prints the most frequent characters the user typed in a game
+void Game::printMostFrequentLetters(unordered_map<char, pair<int, int>>& map, int index) {
+    cout << "---------------------------------------------" << endl;
+    priority_queue<pair<int, char>> max_heap; // sort based off # of times typed
+    for(auto entry : map) {
         char letter = entry.first;
-        int correct = entry.second.first;
-        int incorrect = entry.second.second;
-
-        sorted_letters.push({letter, {correct, incorrect}});
+        int frequency = entry.second.first + entry.second.second;
+        max_heap.push({frequency, letter});
     }
 
-    cout << "| Character | Correctly Typed | Incorrectly Typed | " << endl;
-    // print the letter data
-    while(!sorted_letters.empty()) {
-        pair<char, pair<int, int>> current_letter_data;
-        sorted_letters.pop();
+    cout << "Top " << index << " Most Frequent Characters Typed: " << endl;
+    int i = 1;
+    while(i <= index) {
+        pair<int, char> character_data = max_heap.top();
+        max_heap.pop();
 
-        char letter = current_letter_data.first;
-        int correct = current_letter_data.second.first;
-        int incorrect = correc_letter_data.second.second;
+        char letter = character_data.second;
+        int frequency = character_data.first;
+
+        cout << i << ") " <<  "'" << letter << "', " << frequency << " total times typed. " << endl; 
+        i++;
     }
-
-    
-
+    cout << "---------------------------------------------" << endl;
+    cout << endl;
 }
 
 // actual user playing the game function
@@ -110,6 +104,11 @@ void Game::PlayGame(WordList& prompt, Session& session) {
         user_input = _getch();
         bool correct_character_input = prompt.checkCharInput(user_input, index);
         
+        if (user_input >= 'A' && user_input <= 'Z') {
+            // convert to lowercase when inputting in map
+            user_input += 32;
+        }
+
         if(correct_character_input) 
         {
             // correct user input
@@ -125,10 +124,11 @@ void Game::PlayGame(WordList& prompt, Session& session) {
             correct_streak = 0;
             miss_streak += 1;
             total_characters_missed += 1;
-            characters_typed[user_input].second++;
+            if(user_input != 32) characters_typed[user_input].second++;
+            
         }
-
-        characters_typed[user_input].first++;
+        // dont want to include spaces in character data
+        if(user_input != 32) characters_typed[user_input].first++;
         total_inputs++;
         longest_correct_streak = max(longest_correct_streak, correct_streak);
         longest_miss_streak = max(longest_miss_streak, miss_streak);
@@ -137,7 +137,7 @@ void Game::PlayGame(WordList& prompt, Session& session) {
     auto stop = chrono::high_resolution_clock::now();
     chrono::duration<double> duration = stop - start;
     time_taken = duration.count();
-    accuracy = static_cast<double>(total_characters_correct) / total_inputs; 
+    accuracy = static_cast<double>(total_characters_correct) / total_inputs * 100.0;
     letters_per_minute = static_cast<double>((total_inputs / duration.count()) * 60);
 
 }
@@ -146,26 +146,32 @@ void Game::PlayGame(WordList& prompt, Session& session) {
 // print the game results
 void Game::viewGameStats() {
     cout << endl;
+    cout << endl;
+    cout << "---------------------------------------------" << endl;
     cout << "Total Characters Typed: " << total_inputs << endl;
-    cout << "-------------------------------" << endl;
     cout << "Total Characters Correctly Typed: " << total_characters_correct << endl;
     cout << "Total Characters Miss-Typed: " << total_characters_missed << endl;
-    cout << "-------------------------------" << endl;
     cout << "Game Length: " << time_taken << " seconds" << endl;
-    cout << "Accuracy: " << accuracy << endl;
-    cout << "Longest Correct Streak: " << longest_correct_streak << endl;
-    cout << "Longest Miss-Type Streak: " << longest_miss_streak << endl;
+    cout << "Accuracy: " << fixed << setprecision(2) << accuracy << "%" << endl;
+    cout << "Longest Correct Character Streak: " << longest_correct_streak << endl;
+    cout << "Longest Incorrect Character Streak: " << longest_miss_streak << endl;
     cout << "Typing Speed: " << letters_per_minute << " letters per minute" << endl;
+    cout << "---------------------------------------------" << endl;
 }
 
 
 void Game::viewAdvancedGameStats() {
+
+    cout << endl;
+    printMostFrequentLetters(characters_typed, 3);
+
+
 
 }
 
 
 
 // report the game stats to the current sessions stats
-void Game::reportGameStats(session) {
-    
-}
+//void Game::reportGameStats(session) {
+//    
+//}

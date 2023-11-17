@@ -5,6 +5,7 @@
 #include <unordered_map>
 #include "../Game/Prompt/WordList.h"
 #include "../Session/Session.h"
+#include <queue>
 using namespace std;
 
 class Game {
@@ -31,8 +32,7 @@ public:
     double getAccuracy();
     double getLettersPerMinute();
     int getTimeTaken();
-    void printLetterFrequencies();
-
+    void printMostFrequentLetters(unordered_map<char, pair<int, int>>& map, int index);
     void PlayGame(WordList& prompt, Session& session);
     void viewGameStats();
     void viewAdvancedGameStats();
