@@ -8,18 +8,16 @@ using namespace std;
 class Session {
 
 private:
-    
+    Session();
     int games_played;
-    int highest_accuracy;
-    int worst_accuracy;
-    int fastest_game_completed;
-    int slowest_game_completed;
-    double average_typing_speed;
-    unordered_map<char, int> characters_missed; // count however many times you mistype a letter
-    unordered_map<char, int> characters_typed; // count however many
+    int total_playtime_seconds;
+    vector<int> correct_streaks;
+    vector<int> total_inputs;
+    vector<double> accuracy;
+    vector<int> time_taken;
+    vector<double> typing_speed;
+    unordered_map<char, pair<int, int>> characters_typed; // count however many
     
-
-
 
 public:
 
