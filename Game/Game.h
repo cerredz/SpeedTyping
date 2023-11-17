@@ -33,6 +33,7 @@ public:
     double getLettersPerMinute();
     int getTimeTaken();
     void printMostFrequentLetters(unordered_map<char, pair<int, int>>& map, int index);
+    void printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int index, bool b);
     void PlayGame(WordList& prompt, Session& session);
     void viewGameStats();
     void viewAdvancedGameStats();

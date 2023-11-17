@@ -74,7 +74,7 @@ void Game::printMostFrequentLetters(unordered_map<char, pair<int, int>>& map, in
 
     cout << "Top " << index << " Most Frequent Characters Typed: " << endl;
     int i = 1;
-    while(i <= index) {
+    while(!max_heap.empty() && i <= index) {
         pair<int, char> character_data = max_heap.top();
         max_heap.pop();
 
@@ -85,8 +85,47 @@ void Game::printMostFrequentLetters(unordered_map<char, pair<int, int>>& map, in
         i++;
     }
     cout << "---------------------------------------------" << endl;
-    cout << endl;
 }
+
+
+// prints either the most accurate or least accurate letters based on bool value inputted
+void Game::printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int index, bool b) {
+    cout << "---------------------------------------------" << endl;
+    priority_queue<pair<double, char>> max_heap;
+    priority_queue<pair<double, char>, vector<pair<double, char>>, greater<pair<double, char>>> min_heap;
+
+
+    for (const auto& entry : map) {
+        char letter = entry.first;
+        int correct = entry.second.first, incorrect = entry.second.second;
+        double accuracy = static_cast<double>(correct) / (correct + incorrect) * 100.0;
+        (b) ? max_heap.push({accuracy, letter}) : min_heap.push({accuracy, letter});
+    }
+
+    if(b) cout << "Top " << index << " Most Accurate Characters Typed: " << endl;
+    if(!b) cout << "Top " << index << " Least Accurate Characters Typed: " << endl;
+    
+    // print the letter data
+    for (int i = 1; i <= index; ++i) {
+
+        pair<double, char> current_letter_data;
+        if(b) {
+            current_letter_data = max_heap.top();
+            max_heap.pop();
+        } else {
+            current_letter_data = min_heap.top();
+            min_heap.pop();
+        }
+
+        char letter = current_letter_data.second;
+        double accuracy = current_letter_data.first;
+
+        cout <<  i << ") " << letter << ", " << fixed << setprecision(2) << accuracy << "%" << endl;
+    }
+    cout << "---------------------------------------------" << endl;
+
+}
+
 
 // actual user playing the game function
 void Game::PlayGame(WordList& prompt, Session& session) {
@@ -124,7 +163,7 @@ void Game::PlayGame(WordList& prompt, Session& session) {
             correct_streak = 0;
             miss_streak += 1;
             total_characters_missed += 1;
-            if(user_input != 32) characters_typed[user_input].second++;
+            if(user_input != 32) characters_typed[prompt.getLetter(index)].second++;
             
         }
         // dont want to include spaces in character data
@@ -164,6 +203,8 @@ void Game::viewAdvancedGameStats() {
 
     cout << endl;
     printMostFrequentLetters(characters_typed, 3);
+    printAccuracyOfLetters(characters_typed, 3, true);
+    printAccuracyOfLetters(characters_typed, 3, false);
 
 
 

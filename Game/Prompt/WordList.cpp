@@ -23,6 +23,11 @@ WordList::WordList() {
 int WordList::getSize(){
     return size;
 }
+
+char WordList::getLetter(int index) {
+    if(index >= size) return '\0';
+    return prompt_letters[index];
+}
 // randomly generate a prompt for the user to copy using the sentences contained in sentences.cpp
 string WordList::generatePrompt() {
     
@@ -91,9 +96,11 @@ void WordList::printLetter(int index) {
     if(((index % 100 == 0) || (index % 100 < 5)) &&  index > 5 && prompt_letters[index - 1] == ' '){
         cout << endl;
     }
-    
+
     cout << prompt_letters[index];
 }
+
+
 
 
 

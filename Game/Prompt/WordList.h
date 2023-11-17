@@ -19,6 +19,7 @@ class WordList {
         void printWordList();
         void printLetter(int index);
         int getSize();
+        char getLetter(int index);
 
 };
 
