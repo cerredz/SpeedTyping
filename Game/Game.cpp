@@ -3,6 +3,7 @@
 #include "../Game/Prompt/WordList.h"
 #include "../Game/Game.h"
 #include <unordered_map>
+#include <unordered_set>
 #include <queue>
 #include <chrono>
 #include <conio.h>
@@ -22,9 +23,14 @@ Game::Game() {
     longest_correct_streak = 0;
     longest_miss_streak = 0;
     accuracy = 0.0;
+    left_hand_accuracy = 0.0;
+    right_hand_accuracy = 0.0;
     letters_per_minute = 0;
+    words_per_minute = 0;
     time_taken = 0;
     characters_typed = unordered_map<char,pair<int, int>>();
+    character_speed = unordered_map<char, pair<vector<double>,vector<double>>>(); 
+
 
 }
 
@@ -53,8 +59,12 @@ double Game::getAccuracy() {
     return accuracy;
 }
 
-double Game::getLettersPerMinute() {
+int Game::getLettersPerMinute() {
     return letters_per_minute;
+}
+
+int Game::getWordsPerMinute() {
+    return words_per_minute;
 }
 
 int Game::getTimeTaken() {
@@ -122,7 +132,47 @@ void Game::printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int 
 
         cout <<  i << ") " << letter << ", " << fixed << setprecision(2) << accuracy << "%" << endl;
     }
+
+}
+
+// prints left and right hand accuracy of characters typed
+void Game::printHandAccuracy(unordered_map<char, pair<int, int>>& map) {
+
+    unordered_set<char> left_hand_characters = {'!', '@', '#','^','6', '$', '%', '1', '2', '3', '4', '5', 'q', 'w', 'e', 'r', 't', 'g', 'f', 'd', 's', 'a', 'z','x','c','v'};
+    unordered_set<char> right_hande_characters = {'b', 'h', 'y', '7', '8', '9', '0', 'u', 'i', 'o', 'p', '[', '{', ']', '}', '&', '*', '(', ')', '|', 'j', 'k', 'l', ';', ':', '"', 'n', 'm', ',', '<', '>', '.', '?'};
+
+
+    int total_left_inputs = 0, total_left_incorrect = 0;
+    int total_right_inputs = 0, total_right_incorrect = 0;
+
+    for(const auto& entry : map) {
+        char letter = entry.first;
+        int correct = entry.second.first;
+        int incorrect = entry.second.second;
+
+        if(left_hand_characters.count(letter)) {
+            total_left_inputs += (correct + incorrect);
+            total_left_incorrect += incorrect;
+            continue;
+        } 
+
+        if(right_hande_characters.count(letter)) {
+            total_right_inputs += (correct + incorrect);
+            total_right_incorrect += incorrect;
+            continue;
+        }
+    }
+
+    left_hand_accuracy = static_cast<double>(total_left_inputs - total_left_incorrect) / total_left_incorrect * 100;
+    right_hand_accuracy = static_cast<double>(total_right_inputs - total_right_incorrect) / total_right_inputs * 100;
+
     cout << "---------------------------------------------" << endl;
+    cout << "Left Hand Stats: " << endl;
+    cout << "Accuracy: " << left_hand_accuracy << endl;
+    cout << endl;
+    cout << "Right Hand Stats: " << endl;
+    cout  << "Accuracy: " << right_hand_accuracy << endl;
+    
 
 }
 
@@ -140,7 +190,12 @@ void Game::PlayGame(WordList& prompt, Session& session) {
     while(index < prompt.getSize()) {
 
         char user_input;
+        auto input_start = chrono::high_resolution_clock::now(); 
         user_input = _getch();
+        auto input_stop = chrono::high_resolution_clock::now(); 
+        double input_duration = chrono::duration<double>(input_stop - input_start).count();
+
+
         bool correct_character_input = prompt.checkCharInput(user_input, index);
         
         if (user_input >= 'A' && user_input <= 'Z') {
@@ -156,18 +211,26 @@ void Game::PlayGame(WordList& prompt, Session& session) {
             miss_streak = 0;
             prompt.printLetter(index);
             index++;
-            
+                // dont want to include spaces in character data
+            if(user_input != 32) {
+                characters_typed[user_input].first++;
+                character_speed[prompt.getLetter(index)].first.push_back(input_duration);
+            }
 
         } else {
             // incorrect user input
             correct_streak = 0;
             miss_streak += 1;
             total_characters_missed += 1;
-            if(user_input != 32) characters_typed[prompt.getLetter(index)].second++;
+            if(user_input != 32)  {
+                characters_typed[prompt.getLetter(index)].second++;
+                character_speed[prompt.getLetter(index)].second.push_back(input_duration);
+            }
+            
+            
             
         }
-        // dont want to include spaces in character data
-        if(user_input != 32) characters_typed[user_input].first++;
+        
         total_inputs++;
         longest_correct_streak = max(longest_correct_streak, correct_streak);
         longest_miss_streak = max(longest_miss_streak, miss_streak);
@@ -177,7 +240,8 @@ void Game::PlayGame(WordList& prompt, Session& session) {
     chrono::duration<double> duration = stop - start;
     time_taken = duration.count();
     accuracy = static_cast<double>(total_characters_correct) / total_inputs * 100.0;
-    letters_per_minute = static_cast<double>((total_inputs / duration.count()) * 60);
+    letters_per_minute = (total_inputs / duration.count()) * 60;
+    words_per_minute = (prompt.getWords() / duration.count()) * 60;
 
 }
 
@@ -194,8 +258,11 @@ void Game::viewGameStats() {
     cout << "Accuracy: " << fixed << setprecision(2) << accuracy << "%" << endl;
     cout << "Longest Correct Character Streak: " << longest_correct_streak << endl;
     cout << "Longest Incorrect Character Streak: " << longest_miss_streak << endl;
-    cout << "Typing Speed: " << letters_per_minute << " letters per minute" << endl;
+    cout << "Letters Per Minute: " << letters_per_minute << endl;
+    cout << "Words Per Minute: " << words_per_minute << endl;
     cout << "---------------------------------------------" << endl;
+
+    
 }
 
 
@@ -205,9 +272,6 @@ void Game::viewAdvancedGameStats() {
     printMostFrequentLetters(characters_typed, 3);
     printAccuracyOfLetters(characters_typed, 3, true);
     printAccuracyOfLetters(characters_typed, 3, false);
-
-
-
 }
 
 

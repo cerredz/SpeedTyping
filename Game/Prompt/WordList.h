@@ -10,6 +10,7 @@ class WordList {
     private:
         vector<char> prompt_letters;
         int size;
+        int words;
 
     public:
         WordList();
@@ -19,6 +20,7 @@ class WordList {
         void printWordList();
         void printLetter(int index);
         int getSize();
+        int getWords();
         char getLetter(int index);
 
 };

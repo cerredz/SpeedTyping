@@ -17,10 +17,14 @@ private:
     int longest_correct_streak;
     int longest_miss_streak;
     double accuracy;
-    double letters_per_minute;
+    double left_hand_accuracy;
+    double right_hand_accuracy;
+    int letters_per_minute;
+    int words_per_minute;
     int time_taken;
     unordered_map<char, pair<int, int>> characters_typed; // first value in pair = correct, second value = incorrect
-
+    unordered_map<char, pair<vector<double>,vector<double>>> character_speed; 
+    
 
 public:
     Game();
@@ -30,16 +34,19 @@ public:
     int getLongestCorrectStreak();
     int getLongestMissedStreak();
     double getAccuracy();
-    double getLettersPerMinute();
+    int getLettersPerMinute();
+    int getWordsPerMinute();
     int getTimeTaken();
     void printMostFrequentLetters(unordered_map<char, pair<int, int>>& map, int index);
     void printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int index, bool b);
+    void printHandAccuracy(unordered_map<char, pair<int, int>>& map);
     void PlayGame(WordList& prompt, Session& session);
     void viewGameStats();
     void viewAdvancedGameStats();
     void reportGameStats(Session& session);
     void postGameOptions();
     void clearGameStats();
+
     
 
 };

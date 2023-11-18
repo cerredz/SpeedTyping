@@ -16,6 +16,7 @@ using namespace std;
 WordList::WordList() {
     string prompt = generatePrompt();
     size = prompt.length();
+    words = 0;
     convertStringToWordList(prompt_letters, prompt);
     
 }
@@ -24,6 +25,9 @@ int WordList::getSize(){
     return size;
 }
 
+int WordList::getWords() {
+    return words;
+}
 char WordList::getLetter(int index) {
     if(index >= size) return '\0';
     return prompt_letters[index];
@@ -59,6 +63,9 @@ void WordList::convertStringToWordList(vector<char>& prompt, string str) {
     prompt_letters = vector<char> (size);
     for(int i = 0; i < size; i++) {
         prompt_letters[i] = str[i];
+        if(prompt_letters[i] == ' ') {
+            words++;
+        }
     }
 }
 
