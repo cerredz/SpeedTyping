@@ -25,13 +25,13 @@ Game::Game() {
     accuracy = 0.0;
     left_hand_accuracy = 0.0;
     right_hand_accuracy = 0.0;
+    average_correct_character_speed = 0.0;
+    average_incorrect_character_speed = 0.0;
     letters_per_minute = 0;
     words_per_minute = 0;
     time_taken = 0;
     characters_typed = unordered_map<char,pair<int, int>>();
     character_speed = unordered_map<char, pair<vector<double>,vector<double>>>(); 
-
-
 }
 
 
@@ -94,7 +94,6 @@ void Game::printMostFrequentLetters(unordered_map<char, pair<int, int>>& map, in
         cout << i << ") " <<  "'" << letter << "', " << frequency << " total times typed. " << endl; 
         i++;
     }
-    cout << "---------------------------------------------" << endl;
 }
 
 
@@ -163,17 +162,83 @@ void Game::printHandAccuracy(unordered_map<char, pair<int, int>>& map) {
         }
     }
 
-    left_hand_accuracy = static_cast<double>(total_left_inputs - total_left_incorrect) / total_left_incorrect * 100;
+    left_hand_accuracy = static_cast<double>(total_left_inputs - total_left_incorrect) / total_left_inputs * 100;
     right_hand_accuracy = static_cast<double>(total_right_inputs - total_right_incorrect) / total_right_inputs * 100;
 
     cout << "---------------------------------------------" << endl;
     cout << "Left Hand Stats: " << endl;
-    cout << "Accuracy: " << left_hand_accuracy << endl;
+    cout << "Accuracy: " << left_hand_accuracy << "%" << endl;
     cout << endl;
     cout << "Right Hand Stats: " << endl;
-    cout  << "Accuracy: " << right_hand_accuracy << endl;
-    
+    cout  << "Accuracy: " << right_hand_accuracy << "%" << endl;
+}
 
+// prints the speed stats of a game
+void Game::printSpeedStats(const unordered_map<char, pair<vector<double>, vector<double>>>& map) {
+
+    priority_queue<pair<double, char>> slowest_characters; 
+    priority_queue<pair<double, char>, vector<pair<double, char>>, greater<pair<double, char>>> fastest_characters;
+    
+    double total_correct_time = 0.0, total_incorrect_time = 0.0; // time of chars
+    int total_correct = 0, total_incorrect = 0; // # of chars
+
+    double total_left_correct_time = 0.0, total_left_incorrect_time = 0.0, total_right_correct_time  = 0.0, total_right_incorrect_time = 0;
+
+    for(const auto& entry : map) {
+        // compute average speed of correct and incorrect characters
+        char letter = entry.first;
+        vector<double> correct_times = entry.second.first;
+        vector<double> incorrect_times = entry.second.second;
+
+        total_correct += correct_times.size();
+        total_incorrect += incorrect_times.size();
+
+        double total_time_character_typed = 0.0;
+
+        for(double time : correct_times) {
+            total_correct_time += time;
+            total_time_character_typed += time;
+        }
+
+        for(double time : incorrect_times) {
+            total_incorrect_time += time;
+            total_time_character_typed += time;
+        }
+
+        // sort fastest and slowest character speeds
+        int num_times_character_typed = correct_times.size() + incorrect_times.size();
+        double average_time_character_typed = static_cast<double>(total_time_character_typed) / num_times_character_typed;
+        slowest_characters.push({average_time_character_typed, letter});
+        fastest_characters.push({average_time_character_typed, letter});
+    }
+
+    average_correct_character_speed = static_cast<double> (total_correct_time) / total_correct;
+    average_incorrect_character_speed = static_cast<double> (total_incorrect_time) / total_incorrect;
+    cout << "---------------------------------------------" << endl;
+    cout << "Average Correct Character Typing Speed: " << average_correct_character_speed * 1000 << " milliseconds" << endl;
+    cout << "Average Incorrect Character Typing Speed: " << average_incorrect_character_speed * 1000 << " milliseconds" << endl;
+    cout << "Longest Time Without Mistyping a Character: " << longest_correct_streak_time << " seconds" << endl;
+    cout << "Longest Time Without Typing a Character Correctly: " << longest_incorrect_streak_time << " seconds" << endl; 
+    cout << endl;
+    cout << "Fastest Average Character Typing Speeds (Milliseconds):  " << endl;
+    for(int i = 1; i <= 3 && !fastest_characters.empty(); i++) {
+        pair<double, char> current_fastest_character = fastest_characters.top();
+        fastest_characters.pop();
+        char letter = current_fastest_character.second;
+        double speed = current_fastest_character.first;
+        cout << i << ") " << letter << ", " << speed * 1000 << endl;
+    }
+    cout << endl;
+    cout << "Slowest Average Character Typing Speeds (Milliseconds):  " << endl;
+    for(int i = 1; i <= 3 && !fastest_characters.empty(); i++) {
+        pair<double, char> current_fastest_character = slowest_characters.top();
+        slowest_characters.pop();
+        char letter = current_fastest_character.second;
+        double speed = current_fastest_character.first;
+        cout << i << ") " << letter << ", " << speed * 1000 << endl;
+    }
+
+    
 }
 
 
@@ -185,6 +250,7 @@ void Game::PlayGame(WordList& prompt, Session& session) {
 
     int index = 0;
     int correct_streak = 0, miss_streak = 0;
+    double correct_steak_time = 0.0, incorrect_streak_time = 0.0; 
 
     // while user have not typed all letters
     while(index < prompt.getSize()) {
@@ -194,7 +260,6 @@ void Game::PlayGame(WordList& prompt, Session& session) {
         user_input = _getch();
         auto input_stop = chrono::high_resolution_clock::now(); 
         double input_duration = chrono::duration<double>(input_stop - input_start).count();
-
 
         bool correct_character_input = prompt.checkCharInput(user_input, index);
         
@@ -209,19 +274,24 @@ void Game::PlayGame(WordList& prompt, Session& session) {
             total_characters_correct += 1;
             correct_streak += 1;
             miss_streak = 0;
+            correct_steak_time += input_duration;
+            incorrect_streak_time = 0.0;
             prompt.printLetter(index);
             index++;
                 // dont want to include spaces in character data
             if(user_input != 32) {
                 characters_typed[user_input].first++;
-                character_speed[prompt.getLetter(index)].first.push_back(input_duration);
+                character_speed[user_input].first.push_back(input_duration);
             }
+            
 
         } else {
             // incorrect user input
             correct_streak = 0;
             miss_streak += 1;
             total_characters_missed += 1;
+            correct_steak_time = 0.0;
+            incorrect_streak_time += input_duration;
             if(user_input != 32)  {
                 characters_typed[prompt.getLetter(index)].second++;
                 character_speed[prompt.getLetter(index)].second.push_back(input_duration);
@@ -234,6 +304,8 @@ void Game::PlayGame(WordList& prompt, Session& session) {
         total_inputs++;
         longest_correct_streak = max(longest_correct_streak, correct_streak);
         longest_miss_streak = max(longest_miss_streak, miss_streak);
+        longest_correct_streak_time = max(longest_correct_streak_time, correct_steak_time);
+        longest_incorrect_streak_time = max(longest_incorrect_streak_time, incorrect_streak_time);
     }
 
     auto stop = chrono::high_resolution_clock::now();
@@ -269,9 +341,20 @@ void Game::viewGameStats() {
 void Game::viewAdvancedGameStats() {
 
     cout << endl;
+    cout << "General Advanced Stats: " << endl;
     printMostFrequentLetters(characters_typed, 3);
     printAccuracyOfLetters(characters_typed, 3, true);
     printAccuracyOfLetters(characters_typed, 3, false);
+
+    cout << endl;
+    cout << "Typing Speed Advanced Stats: " << endl;
+    printSpeedStats(character_speed);
+
+    cout << endl;
+    cout << "Left vs Right Hand Stats: " << endl;
+    printHandAccuracy(characters_typed);
+    
+
 }
 
 
