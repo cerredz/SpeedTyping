@@ -514,5 +514,20 @@ void Game::clearGameStats() {
     character_speed.clear();
 }
 
+// reports the game stats to the current session
+void reportGameStats(Session& session) {
+
+    session.incrementGamesPlayed();
+    session.addCorrectStreak(longest_correct_streak);
+    session.addMissStreak(longest_miss_streak);
+    session.addInput(total_characters_correct, total_characters_missed);
+    session.addTime(time_taken);
+    session.addAccuracy(accuracy);
+    session.addLettersPerMinute(letters_per_minute);
+    session.addWordsPerMinute(words_per_minute);
+    session.addCharactersTyped(characters_typed);
+    session.addCharacterSpeeds(character_speed);
+}
+
 
 
