@@ -7,10 +7,14 @@ using namespace std;
 
 Session::Session() {
     games_played = 0;
-    total_playtime_seconds = 0;
     correct_streaks = vector<int>();
-    total_inputs = vector<int>(); 
+    miss_streaks = vector<int>();
+    inputs = vector<int>(); 
     accuracy = vector<double>();
-    time_taken = vector<int>();
+    time = vector<int>();
+    letters_per_minute = vector<int>();
+    words_per_minute = vector<int>();
     characters_typed = unordered_map<char, pair<int, int>>();
+    character_speed = unordered_map<char, pair<vector<double>, vector<double>>>();
 }
+

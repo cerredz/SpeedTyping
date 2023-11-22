@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <unordered_set>
 #include "../Game/Prompt/WordList.h"
 #include "../Session/Session.h"
 #include <queue>
@@ -41,9 +42,9 @@ public:
     int getLettersPerMinute();
     int getWordsPerMinute();
     int getTimeTaken();
-    void printMostFrequentLetters(unordered_map<char, pair<int, int>>& map, int index);
+    void displayMostFrequentLetters(unordered_map<char, pair<int, int>>& map, int index);
     void printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int index, bool b);
-    void printHandAccuracy(unordered_map<char, pair<int, int>>& map);
+    void printHandStats(unordered_map<char, pair<int, int>>& map);
     void printSpeedStats(const unordered_map<char, pair<vector<double>, vector<double>>>& map); 
     void PlayGame(WordList& prompt, Session& session);
     void viewGameStats();
@@ -51,7 +52,8 @@ public:
     void reportGameStats(Session& session);
     void postGameOptions();
     void clearGameStats();
-
+    void printHandSpeedStats(const unordered_map<char, pair<vector<double>, vector<double>>>& map, const unordered_set<char>& letters);
+    void displayHandFrequencyStats(const unordered_map<char, pair<int, int>>& map, const unordered_set<char>& letters);
     
 
 };

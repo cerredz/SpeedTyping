@@ -73,8 +73,7 @@ int Game::getTimeTaken() {
 
 
 // prints the most frequent characters the user typed in a game
-void Game::printMostFrequentLetters(unordered_map<char, pair<int, int>>& map, int index) {
-    cout << "---------------------------------------------" << endl;
+void Game::displayMostFrequentLetters(unordered_map<char, pair<int, int>>& map, int index) {
     priority_queue<pair<int, char>> max_heap; // sort based off # of times typed
     for(auto entry : map) {
         char letter = entry.first;
@@ -91,7 +90,7 @@ void Game::printMostFrequentLetters(unordered_map<char, pair<int, int>>& map, in
         char letter = character_data.second;
         int frequency = character_data.first;
 
-        cout << i << ") " <<  "'" << letter << "', " << frequency << " total times typed. " << endl; 
+        cout << i << ") " <<  "'" << letter << "', " << frequency << endl; 
         i++;
     }
 }
@@ -99,7 +98,7 @@ void Game::printMostFrequentLetters(unordered_map<char, pair<int, int>>& map, in
 
 // prints either the most accurate or least accurate letters based on bool value inputted
 void Game::printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int index, bool b) {
-    cout << "---------------------------------------------" << endl;
+    cout << endl;
     priority_queue<pair<double, char>> max_heap;
     priority_queue<pair<double, char>, vector<pair<double, char>>, greater<pair<double, char>>> min_heap;
 
@@ -107,7 +106,7 @@ void Game::printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int 
     for (const auto& entry : map) {
         char letter = entry.first;
         int correct = entry.second.first, incorrect = entry.second.second;
-        double accuracy = static_cast<double>(correct) / (correct + incorrect) * 100.0;
+        double accuracy = static_cast<double>(correct) / static_cast<double>(correct + incorrect) * 100.0;
         (b) ? max_heap.push({accuracy, letter}) : min_heap.push({accuracy, letter});
     }
 
@@ -135,10 +134,10 @@ void Game::printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int 
 }
 
 // prints left and right hand accuracy of characters typed
-void Game::printHandAccuracy(unordered_map<char, pair<int, int>>& map) {
+void Game::printHandStats(unordered_map<char, pair<int, int>>& map) {
 
     unordered_set<char> left_hand_characters = {'!', '@', '#','^','6', '$', '%', '1', '2', '3', '4', '5', 'q', 'w', 'e', 'r', 't', 'g', 'f', 'd', 's', 'a', 'z','x','c','v'};
-    unordered_set<char> right_hande_characters = {'b', 'h', 'y', '7', '8', '9', '0', 'u', 'i', 'o', 'p', '[', '{', ']', '}', '&', '*', '(', ')', '|', 'j', 'k', 'l', ';', ':', '"', 'n', 'm', ',', '<', '>', '.', '?'};
+    unordered_set<char> right_hand_characters = {'b', 'h', 'y', '7', '8', '9', '0', 'u', 'i', 'o', 'p', '[', '{', ']', '}', '&', '*', '(', ')', '|', 'j', 'k', 'l', ';', ':', '"', 'n', 'm', ',', '<', '>', '.', '?'};
 
 
     int total_left_inputs = 0, total_left_incorrect = 0;
@@ -155,7 +154,7 @@ void Game::printHandAccuracy(unordered_map<char, pair<int, int>>& map) {
             continue;
         } 
 
-        if(right_hande_characters.count(letter)) {
+        if(right_hand_characters.count(letter)) {
             total_right_inputs += (correct + incorrect);
             total_right_incorrect += incorrect;
             continue;
@@ -164,13 +163,31 @@ void Game::printHandAccuracy(unordered_map<char, pair<int, int>>& map) {
 
     left_hand_accuracy = static_cast<double>(total_left_inputs - total_left_incorrect) / total_left_inputs * 100;
     right_hand_accuracy = static_cast<double>(total_right_inputs - total_right_incorrect) / total_right_inputs * 100;
+    
+    
+    cout << "---------------------------------------------\n" << endl;
+    cout << "Left Hand Stats: \n" << endl;
+    cout << "---------------------------------------------\n" << endl;
 
-    cout << "---------------------------------------------" << endl;
-    cout << "Left Hand Stats: " << endl;
-    cout << "Accuracy: " << left_hand_accuracy << "%" << endl;
     cout << endl;
-    cout << "Right Hand Stats: " << endl;
-    cout  << "Accuracy: " << right_hand_accuracy << "%" << endl;
+    cout << "Total Characters Typed: " << total_left_inputs << endl;
+    cout << "Correctly Typed: " << (total_left_inputs - total_left_incorrect) << endl;
+    cout << "Incorrectly Typed: " << total_left_incorrect << endl;
+    cout << "Accuracy: " << left_hand_accuracy << "%\n" << endl;
+    printHandSpeedStats(character_speed, left_hand_characters);
+    displayHandFrequencyStats(characters_typed, left_hand_characters);
+
+
+    cout << endl;
+    cout << "---------------------------------------------\n" << endl;
+    cout << "Right Hand Stats: \n" << endl;
+    cout << "---------------------------------------------\n" << endl;    cout << endl;
+    cout << "Total Characters Typed: " << total_right_inputs << endl;
+    cout << "Correctly Typed: " << (total_left_inputs - total_right_incorrect) << endl;
+    cout << "Incorrectly Typed: " << total_right_incorrect << endl;
+    cout  << "Accuracy: " << right_hand_accuracy << "%\n" << endl;
+    printHandSpeedStats(character_speed, right_hand_characters);
+    displayHandFrequencyStats(characters_typed, right_hand_characters);
 }
 
 // prints the speed stats of a game
@@ -215,10 +232,10 @@ void Game::printSpeedStats(const unordered_map<char, pair<vector<double>, vector
     average_correct_character_speed = static_cast<double> (total_correct_time) / total_correct;
     average_incorrect_character_speed = static_cast<double> (total_incorrect_time) / total_incorrect;
     cout << "---------------------------------------------" << endl;
-    cout << "Average Correct Character Typing Speed: " << average_correct_character_speed * 1000 << " milliseconds" << endl;
-    cout << "Average Incorrect Character Typing Speed: " << average_incorrect_character_speed * 1000 << " milliseconds" << endl;
-    cout << "Longest Time Without Mistyping a Character: " << longest_correct_streak_time << " seconds" << endl;
-    cout << "Longest Time Without Typing a Character Correctly: " << longest_incorrect_streak_time << " seconds" << endl; 
+    cout << "Average Speed for Correctly Typed Characters: " << average_correct_character_speed * 1000 << " milliseconds" << endl;
+    cout << "Average Speed for Incorrectly Typed Characters: " << average_incorrect_character_speed * 1000 << " milliseconds" << endl;
+    cout << "Longest Consecutive Time Without Mistyping a Character: " << longest_correct_streak_time << " seconds" << endl;
+    cout << "Longest Consecutive Time Without Typing a Character Correctly: " << longest_incorrect_streak_time << " seconds" << endl; 
     cout << endl;
     cout << "Fastest Average Character Typing Speeds (Milliseconds):  " << endl;
     for(int i = 1; i <= 3 && !fastest_characters.empty(); i++) {
@@ -237,8 +254,6 @@ void Game::printSpeedStats(const unordered_map<char, pair<vector<double>, vector
         double speed = current_fastest_character.first;
         cout << i << ") " << letter << ", " << speed * 1000 << endl;
     }
-
-    
 }
 
 
@@ -322,44 +337,182 @@ void Game::PlayGame(WordList& prompt, Session& session) {
 void Game::viewGameStats() {
     cout << endl;
     cout << endl;
-    cout << "---------------------------------------------" << endl;
+    cout << "------------------------------------------------\n" << endl;
+    cout << "\t General Game Stats\n" << endl;
+    cout << "------------------------------------------------\n" << endl;
+
     cout << "Total Characters Typed: " << total_inputs << endl;
-    cout << "Total Characters Correctly Typed: " << total_characters_correct << endl;
-    cout << "Total Characters Miss-Typed: " << total_characters_missed << endl;
+    cout << "Correctly Typed: " << total_characters_correct << endl;
+    cout << "Incorrectly Typed: " << total_characters_missed << endl;
     cout << "Game Length: " << time_taken << " seconds" << endl;
     cout << "Accuracy: " << fixed << setprecision(2) << accuracy << "%" << endl;
     cout << "Longest Correct Character Streak: " << longest_correct_streak << endl;
     cout << "Longest Incorrect Character Streak: " << longest_miss_streak << endl;
     cout << "Letters Per Minute: " << letters_per_minute << endl;
     cout << "Words Per Minute: " << words_per_minute << endl;
-    cout << "---------------------------------------------" << endl;
 
     
 }
 
-
+// print the advanced stats of a game
 void Game::viewAdvancedGameStats() {
 
     cout << endl;
-    cout << "General Advanced Stats: " << endl;
-    printMostFrequentLetters(characters_typed, 3);
+    cout << "------------------------------------------------\n" << endl;
+    cout << "\tAdvanced Game Stats\n" << endl;
+    cout << "------------------------------------------------\n" << endl;
+    displayMostFrequentLetters(characters_typed, 3);
     printAccuracyOfLetters(characters_typed, 3, true);
     printAccuracyOfLetters(characters_typed, 3, false);
 
     cout << endl;
-    cout << "Typing Speed Advanced Stats: " << endl;
+    cout << endl;
+    cout << "------------------------------------------------\n" << endl;
+    cout << "\tTyping Speed Advanced Stats\n" << endl;
+    cout << "------------------------------------------------\n" << endl;
     printSpeedStats(character_speed);
 
     cout << endl;
-    cout << "Left vs Right Hand Stats: " << endl;
-    printHandAccuracy(characters_typed);
+    cout << endl;
+    cout << "------------------------------------------------\n" << endl;
+    cout << "\tLeft vs Right Hand Advanced Stats\n" << endl;
+    cout << "------------------------------------------------\n" << endl;
+    printHandStats(characters_typed);
     
+}
 
+
+// print the speed stats for the left hand of a game
+void Game::printHandSpeedStats(const unordered_map<char, pair<vector<double>, vector<double>>>& map, const unordered_set<char>& letters) {
+    
+    double total_correct_time = 0.0, total_incorrect_time = 0.0;
+    int total_correct = 0, total_incorrect = 0;
+    priority_queue<pair<double, char>> slowest_chars;
+    priority_queue<pair<double, char>, vector<pair<double, char>>, greater<pair<double,char>>> fastest_chars;
+
+
+    for(const auto& entry : map) {
+        char letter = entry.first;
+        if(!letters.count(letter)) continue;
+        
+        // extract speeds for current letter
+        vector<double> correct_speeds = entry.second.first;
+        vector<double> incorrect_speeds = entry.second.second;
+
+        int times_typed = (correct_speeds.size() + incorrect_speeds.size());
+        double char_typed_time = 0.0;
+
+        // add together speeds to calculate average correct / incorrect speeds
+        total_correct += correct_speeds.size();
+        total_incorrect += incorrect_speeds.size();
+        
+        for(auto speed : correct_speeds) {
+            total_correct_time += speed;
+            char_typed_time += speed;
+
+        }
+
+        for(auto speed : incorrect_speeds) {
+            total_incorrect_time += speed;
+            char_typed_time += speed;
+        }
+
+        double average_time_typed = static_cast<double>(char_typed_time) / times_typed;
+        slowest_chars.push({average_time_typed, letter});
+        fastest_chars.push({average_time_typed, letter});
+    }
+
+    double average_correct_time = static_cast<double>(total_correct_time) / total_correct;
+    double average_incorrect_time = static_cast<double>(total_incorrect_time) / total_incorrect;
+
+    cout << "Average Speed for Correctly Typed Characters: " << average_correct_time * 1000 << " milliseconds" << endl;
+    cout << "Average Speed for Incorrectly Typed Characters: " << average_incorrect_time * 1000 << " milliseconds" << endl;
+    cout << endl;
+
+    cout << "Fastest Average Character Typing Speed (milliseconds): " << endl;
+    for(int i = 1; i <= 3 && !fastest_chars.empty(); i++) {
+        pair<double, char> curr_fastest = fastest_chars.top();
+        fastest_chars.pop();
+
+        char letter = curr_fastest.second;
+        double speed = curr_fastest.first;
+
+        cout << i << ") " << letter << ", " << speed * 1000 << endl;
+    }
+    cout << endl;
+
+    cout << "Slowest Average Character Typing Speed (milliseconds): " << endl;
+    for(int i = 1; i <= 3 && !slowest_chars.empty(); i++) {
+        pair<double, char> curr_slowest = slowest_chars.top();
+        slowest_chars.pop();
+
+        char letter = curr_slowest.second;
+        double speed = curr_slowest.first;
+        cout << i << ") " << letter << ", " << speed * 1000 << endl;
+    }
+    cout << endl;
+}
+
+// display left vs right hand frequency character stats
+void Game::displayHandFrequencyStats(const unordered_map<char, pair<int, int>>& map, const unordered_set<char>& letters) {
+
+    priority_queue<pair<int, char>> most_frequent;
+    priority_queue<pair<int, char>, vector<pair<int, char>>, greater<pair<int,char>>> least_frequent;
+
+    for(const auto& entry : map) {
+
+        char letter = entry.first;
+        int frequency = (entry.second.first + entry.second.second);
+        if(letters.count(letter)) {
+            most_frequent.push({frequency, letter});
+            least_frequent.push({frequency, letter});
+         }
+    }
+
+    cout << "Most Frequent Characters Typed: " << endl;
+    for(int i = 1; i <= 3 && !most_frequent.empty(); i++) {
+
+        pair<int, char> curr_most_frequent = most_frequent.top();
+        most_frequent.pop();
+        char letter = curr_most_frequent.second;
+        int frequency = curr_most_frequent.first;
+
+        cout << i << ") " << letter << ", " << frequency << endl; 
+    }
+    cout << endl;
+
+    cout << "Least Frequent Characters Typed: " << endl;
+    for(int i = 1; i <= 3 && !least_frequent.empty(); i++) {
+        pair<int, char> curr_least_frequent = least_frequent.top();
+        least_frequent.pop();
+        char letter = curr_least_frequent.second;
+        int frequency = curr_least_frequent.first;
+
+        cout << i << ") " << letter << ", " << frequency << endl; 
+    }   
+}
+
+// clear the game stats in the case a user wants to play another game
+void Game::clearGameStats() {
+    total_inputs = 0;
+    total_characters_missed = 0;
+    total_characters_correct = 0;
+    longest_correct_streak = 0;
+    longest_miss_streak = 0;
+    longest_correct_streak_time = 0.0;
+    longest_incorrect_streak_time = 0.0;
+    accuracy = 0.0;
+    left_hand_accuracy = 0.0;
+    right_hand_accuracy = 0.0;
+    average_correct_character_speed = 0.0;
+    average_incorrect_character_speed = 0.0;
+    letters_per_minute = 0;
+    words_per_minute = 0;
+    time_taken = 0;
+
+    characters_typed.clear();
+    character_speed.clear();
 }
 
 
 
-// report the game stats to the current sessions stats
-//void Game::reportGameStats(session) {
-//    
-//}
