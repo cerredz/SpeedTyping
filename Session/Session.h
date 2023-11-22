@@ -36,11 +36,20 @@ public:
     void addCharacterSpeeds(const unordered_map<char, pair<vector<double>, vector<double>>>& map);
     template <typename T>
     T getAverage(const vector<T>& nums);
+    template <typename T>
     T getLowest(const vector<T>& nums);
+    template <typename T>
     T getHighest(const vector<T>& nums);
+    template <typename T>
     T getMedian(const vector<T>& nums);
+    template <typename T>
     T getStandardDeviation(const vector<T>& nums);
-    
+    int getTotalInputs();
+    int getTotalCorrect();
+    int getTotalIncorrect();
+    pair<int, int> getTotalTimePlayed();
+    double getAccuracy();
+    void stats();
 
     
 

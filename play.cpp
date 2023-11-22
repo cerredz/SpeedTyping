@@ -13,12 +13,19 @@ int main() {
     Session session;
     //g++ Game/Prompt/WordList.cpp Game/Prompt/Sentences.cpp Game/Game.cpp Session/Session.cpp play.cpp -o play
     
-    game.PlayGame(prompt, session);
-    //reportGameStats(session); // report game stats to the session stats
+    string user_input;
+    cout << "Enter The Number 1 to continue playing:: " << endl;
+    cin >> user_input;
+    while(user_input == "1") {
+        game.PlayGame(prompt, session);
+    }
+    
+    game.reportGameStats(session); // report game stats to the session stats
     //clearGameStats();
    // postGameOptions();
     
-    game.viewGameStats();
-    game.viewAdvancedGameStats();
+    //game.viewGameStats();
+    //game.viewAdvancedGameStats();
+    sesison.stats();
     return 0;
 }

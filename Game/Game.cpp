@@ -515,7 +515,7 @@ void Game::clearGameStats() {
 }
 
 // reports the game stats to the current session
-void reportGameStats(Session& session) {
+void Game::reportGameStats(Session& session) {
 
     session.incrementGamesPlayed();
     session.addCorrectStreak(longest_correct_streak);
