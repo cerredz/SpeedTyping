@@ -134,7 +134,7 @@ void Game::printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int 
 }
 
 // prints left and right hand accuracy of characters typed
-void Game::printHandStats(unordered_map<char, pair<int, int>>& map) {
+void Game::printHandStats(unordered_map<char, pair<int, int>>& map, const unordered_map<char, pair<vector<double>, vector<double>>>& speeds) {
 
     unordered_set<char> left_hand_characters = {'!', '@', '#','^','6', '$', '%', '1', '2', '3', '4', '5', 'q', 'w', 'e', 'r', 't', 'g', 'f', 'd', 's', 'a', 'z','x','c','v'};
     unordered_set<char> right_hand_characters = {'b', 'h', 'y', '7', '8', '9', '0', 'u', 'i', 'o', 'p', '[', '{', ']', '}', '&', '*', '(', ')', '|', 'j', 'k', 'l', ';', ':', '"', 'n', 'm', ',', '<', '>', '.', '?'};
@@ -174,8 +174,8 @@ void Game::printHandStats(unordered_map<char, pair<int, int>>& map) {
     cout << "Correctly Typed: " << (total_left_inputs - total_left_incorrect) << endl;
     cout << "Incorrectly Typed: " << total_left_incorrect << endl;
     cout << "Accuracy: " << left_hand_accuracy << "%\n" << endl;
-    printHandSpeedStats(character_speed, left_hand_characters);
-    displayHandFrequencyStats(characters_typed, left_hand_characters);
+    printHandSpeedStats(speeds, left_hand_characters);
+    displayHandFrequencyStats(map, left_hand_characters);
 
 
     cout << endl;
@@ -186,8 +186,8 @@ void Game::printHandStats(unordered_map<char, pair<int, int>>& map) {
     cout << "Correctly Typed: " << (total_left_inputs - total_right_incorrect) << endl;
     cout << "Incorrectly Typed: " << total_right_incorrect << endl;
     cout  << "Accuracy: " << right_hand_accuracy << "%\n" << endl;
-    printHandSpeedStats(character_speed, right_hand_characters);
-    displayHandFrequencyStats(characters_typed, right_hand_characters);
+    printHandSpeedStats(speeds, right_hand_characters);
+    displayHandFrequencyStats(map, right_hand_characters);
 }
 
 // prints the speed stats of a game
@@ -224,7 +224,7 @@ void Game::printSpeedStats(const unordered_map<char, pair<vector<double>, vector
 
         // sort fastest and slowest character speeds
         int num_times_character_typed = correct_times.size() + incorrect_times.size();
-        double average_time_character_typed = static_cast<double>(total_time_character_typed) / num_times_character_typed;
+        double average_time_character_typed = static_cast<double>(total_time_character_typed) / static_cast<double>(num_times_character_typed);
         slowest_characters.push({average_time_character_typed, letter});
         fastest_characters.push({average_time_character_typed, letter});
     }
@@ -377,7 +377,7 @@ void Game::viewAdvancedGameStats() {
     cout << "------------------------------------------------\n" << endl;
     cout << "\tLeft vs Right Hand Advanced Stats\n" << endl;
     cout << "------------------------------------------------\n" << endl;
-    printHandStats(characters_typed);
+    printHandStats(characters_typed, character_speed);
     
 }
 

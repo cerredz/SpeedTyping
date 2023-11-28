@@ -2,8 +2,10 @@
 #include <vector>
 #include <unordered_map>
 #include <cmath>
+#include <iomanip>
 
 #include "Session.h"
+#include "../Game/Game.h"
 using namespace std;
 
 Session::Session() {
@@ -70,22 +72,28 @@ void Session::addCharactersTyped(const unordered_map<char, pair<int,int>>& map) 
 
 // add correct / incorrect character speed data from a game into a session
 void Session::addCharacterSpeeds(const unordered_map<char, pair<vector<double>, vector<double>>>& map) {
-
-    for(const auto& entry : map) {
-
+    for (const auto& entry : map) {
         char letter = entry.first;
         vector<double> correct = entry.second.first;
         vector<double> incorrect = entry.second.second;
 
-        for(int speed : correct) character_speed[letter].first.push_back(speed);
-        for(int speed : incorrect) character_speed[letter].second.push_back(speed);
+        // Check if the letter already exists in the map
+        if (character_speed.find(letter) == character_speed.end()) {
+            // If not, create a new entry with empty vectors
+            character_speed[letter] = { {}, {} };
+        }
+
+        // Append speeds to the existing vectors
+        character_speed[letter].first.insert(character_speed[letter].first.end(), correct.begin(), correct.end());
+        character_speed[letter].second.insert(character_speed[letter].second.end(), incorrect.begin(), incorrect.end());
     }
- }
+}
 
 // get the average of a list of numbers
 template<typename T>
 T Session::getAverage(const vector<T>& nums) {
     T sum = 0;
+    int size = nums.size();
     if(nums.empty()) return sum;
 
     for(auto num : nums) 
@@ -116,7 +124,7 @@ T Session::getHighest(const vector<T>& nums) {
     for(auto num : nums)
         highest = max(highest, num);
 
-    return highest;
+    return static_cast<T>(highest);
 }
 
 // get the median of a list of numbers
@@ -125,7 +133,7 @@ T Session::getMedian(const vector<T>& nums) {
 
     int size = nums.size();
     sort(nums.begin(), nums.end());
-    return (nums[size - 1] / 2);
+    return static_cast<T>(nums[size - 1] / 2);
 }
 
 // get the standard deviation of a list of numbers
@@ -138,7 +146,7 @@ T Session::getStandardDeviation(const vector<T>& nums) {
         standard_deviation += pow(num - mean, 2);
     }
 
-    return sqrt(standard_deviation, static_cast<T>(nums.size() - 1));
+    return static_cast<T>(sqrt(standard_deviation, static_cast<T>(nums.size() - 1)));
 }
 
 // gets the total amount of character inputs during a session
@@ -150,7 +158,7 @@ int Session::getTotalInputs() {
 }
 
 // gets the total amount of correct character inputs during a session
-int Session::getTotalInputs() {
+int Session::getTotalCorrect() {
     int total = 0;
     for(auto i : inputs)
         total += (i.first);
@@ -158,7 +166,7 @@ int Session::getTotalInputs() {
 }
 
 // gets the total amount of incorrect character inputs during a session
-int Session::getTotalInputs() {
+int Session::getTotalIncorrect() {
     int total = 0;
     for(auto i : inputs)
         total += (i.second);
@@ -200,7 +208,40 @@ void Session::stats() {
 
     cout << "Games Played: " << games_played << endl;
     pair<int, int> total_time_played = getTotalTimePlayed();
-    cout << "Total Time Played: " << total_time_played.first  << " minutes" << total_time_played.second << " seconds" << endl;
+    cout << "Total Time Played: " << total_time_played.first  << " minutes " << total_time_played.second << " seconds" << endl;
+    cout << "Total Characters Typed: " << getTotalInputs() << endl;
+    cout << "Accuracy: " << fixed << setprecision(2) << getAccuracy() * 100 << "%" << endl;
+    cout << "Longest Correct Character Streak: " << getHighest(correct_streaks) << endl;
+    cout << "Longest Incorrect Character Streak: " << getHighest(miss_streaks) << endl;
+    cout << "Letters Per Minute: " << getAverage(letters_per_minute) << endl;
+    cout << "Words Per Minute: " << getAverage(words_per_minute) << endl;
+    cout << endl;
+    cout << endl;
+}
+
+// print the advanced stats for a session
+void Session::advancedStats() {
+
+    unordered_set<char> left_hand_characters = {'!', '@', '#','^','6', '$', '%', '1', '2', '3', '4', '5', 'q', 'w', 'e', 'r', 't', 'g', 'f', 'd', 's', 'a', 'z','x','c','v'};
+    unordered_set<char> right_hand_characters = {'b', 'h', 'y', '7', '8', '9', '0', 'u', 'i', 'o', 'p', '[', '{', ']', '}', '&', '*', '(', ')', '|', 'j', 'k', 'l', ';', ':', '"', 'n', 'm', ',', '<', '>', '.', '?'};
+    Game temp; // need functions from Game Class
     
 
+    cout << "-------------------------------------------------------\n" << endl;
+    cout << "Advanced Session Stats\n" << endl;
+    cout << "-------------------------------------------------------\n" << endl;
+    temp.displayMostFrequentLetters(characters_typed, 3);
+    temp.printAccuracyOfLetters(characters_typed, 3, true);
+    temp.printAccuracyOfLetters(characters_typed, 3, false);
+
+    cout << "-------------------------------------------------------\n" << endl;
+    cout << "Speed Stats\n" << endl;
+    cout << "-------------------------------------------------------\n" << endl;
+    temp.printSpeedStats(character_speed);
+
+    cout << "-------------------------------------------------------\n" << endl;
+    cout << "Hand Stats\n" << endl;
+    cout << "-------------------------------------------------------\n" << endl;
+    temp.printHandStats(characters_typed, character_speed);
+    
 }

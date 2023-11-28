@@ -50,6 +50,7 @@ public:
     pair<int, int> getTotalTimePlayed();
     double getAccuracy();
     void stats();
+    void advancedStats();
 
     
 

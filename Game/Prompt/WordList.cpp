@@ -17,7 +17,7 @@ WordList::WordList() {
     string prompt = generatePrompt();
     size = prompt.length();
     words = 0;
-    convertStringToWordList(prompt_letters, prompt);
+    convertStringToWordList(prompt);
     
 }
 
@@ -58,8 +58,9 @@ string WordList::generatePrompt() {
 }
 
 // converts a string to a list of chars, mainly used to convert generated prompt into WordList object
-void WordList::convertStringToWordList(vector<char>& prompt, string str) {
+void WordList::convertStringToWordList(string str) {
 
+    size = str.size();
     prompt_letters = vector<char> (size);
     for(int i = 0; i < size; i++) {
         prompt_letters[i] = str[i];
@@ -67,6 +68,7 @@ void WordList::convertStringToWordList(vector<char>& prompt, string str) {
             words++;
         }
     }
+    
 }
 
 // checks a user inputted character to the inputted index of the WordList object
@@ -107,7 +109,9 @@ void WordList::printLetter(int index) {
     cout << prompt_letters[index];
 }
 
-
+vector<char> WordList::getPromptLetters() {
+    return prompt_letters;
+}
 
 
 

@@ -15,13 +15,14 @@ class WordList {
     public:
         WordList();
         string generatePrompt();
-        void convertStringToWordList(vector<char>& prompt, string str);
+        void convertStringToWordList(string str);
         bool checkCharInput(char c, int index);
         void printWordList();
         void printLetter(int index);
         int getSize();
         int getWords();
         char getLetter(int index);
+        vector<char> getPromptLetters();
 
 };
 

@@ -13,19 +13,26 @@ int main() {
     Session session;
     //g++ Game/Prompt/WordList.cpp Game/Prompt/Sentences.cpp Game/Game.cpp Session/Session.cpp play.cpp -o play
     
-    string user_input;
-    cout << "Enter The Number 1 to continue playing:: " << endl;
-    cin >> user_input;
+    string user_input = "1";
+
     while(user_input == "1") {
+        cout << "Enter The Number 1 to continue playing:: " << endl;
+        cin >> user_input;
+        string new_prompt = prompt.generatePrompt();
+        prompt.convertStringToWordList(new_prompt);
+
         game.PlayGame(prompt, session);
+        game.viewGameStats();
+        game.clearGameStats();
+        cout << endl;
     }
     
-    game.reportGameStats(session); // report game stats to the session stats
-    //clearGameStats();
-   // postGameOptions();
+     // report game stats to the session stats
+        //clearGameStats();
+    // postGameOptions();
     
-    //game.viewGameStats();
-    //game.viewAdvancedGameStats();
-    sesison.stats();
+    
+    session.stats();
+    session.advancedStats();
     return 0;
 }

@@ -44,7 +44,7 @@ public:
     int getTimeTaken();
     void displayMostFrequentLetters(unordered_map<char, pair<int, int>>& map, int index);
     void printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int index, bool b);
-    void printHandStats(unordered_map<char, pair<int, int>>& map);
+    void printHandStats(unordered_map<char, pair<int, int>>& map, const unordered_map<char, pair<vector<double>, vector<double>>>& speeds);
     void printSpeedStats(const unordered_map<char, pair<vector<double>, vector<double>>>& map); 
     void PlayGame(WordList& prompt, Session& session);
     void viewGameStats();
