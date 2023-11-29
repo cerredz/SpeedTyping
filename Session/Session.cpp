@@ -215,7 +215,7 @@ void Session::stats() {
     cout << "Longest Incorrect Character Streak: " << getHighest(miss_streaks) << endl;
     cout << "Letters Per Minute: " << getAverage(letters_per_minute) << endl;
     cout << "Words Per Minute: " << getAverage(words_per_minute) << endl;
-    cout << endl;
+    cout << "\n-----------------------------------------------------\n" << endl;
     cout << endl;
 }
 
@@ -250,23 +250,28 @@ void Session::advancedStats() {
 // handles the logic behind whether the user wants to view the general or advanced stats
 void Session::statOptions() {
 
-    int choice = "";
+    start:
+    int choice = 0;
+    bool isExiting = false;
     
-    cout << "\nWhat type of stats would you prefer to see?\n" << endl;
+    cout << "-------------------------------------------------------" << endl;
+    cout << "What type of stats would you prefer to see?\n" << endl;
     cout << "1) General Session Stats " << endl;
     cout << "2) Advanced Session Stats " << endl;
     cout << "3) Both (1 and 2) " << endl;
     cout << "4) Back\n" << endl;
     cout << "Enter the Number Corresponding to Your Choice: ";
     cin>>choice;
+    cout << endl;
 
-    while(choice != 1 || choice != 2 || choice != 3 || choice != 4) {
+    while(choice != 1 && choice != 2 && choice != 3 && choice != 4) {
         cout << "Invalid Input. Please Enter A Number Between 1-4: ";
         cin>>choice;
     }
 
     switch(choice) {
         case 1:
+            
             stats();
             break;
         case 2: 
@@ -277,7 +282,29 @@ void Session::statOptions() {
             advancedStats();
             break;
         case 4:
-            cout << "Exiting the Session Stats. You Selected to exit. "
+            cout << "Exiting the Session Stats. You Selected to exit. ";
+            isExiting = true;
             break;
     }
+
+    if(!isExiting) {
+        // user might want to keep viewing session stats
+        string user_input;
+        cout << "Do you want to see more session stats? (yes, no)" << endl;
+        cout << "Enter your answer here: ";
+        cin>> user_input;
+
+        while(user_input != "yes" && user_input != "no") {
+            cout << "\nInvalid Answer, please type 'yes' or 'no' " << endl;
+            cout << "Enter your answer here: ";
+            cin>> user_input;
+        }   
+        if(user_input == "yes") goto start;
+        
+        cout << "-------------------------------" << endl;
+        cout << "Exiting the Session Stats" << endl;
+        cout << "-------------------------------" << endl;
+    }
+    
+
 }

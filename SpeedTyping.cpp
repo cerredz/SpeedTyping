@@ -4,6 +4,7 @@
 
 void SpeedTyping::welcome() {
 
+    cout << endl;
     cout << "---------------------------------------------------------------------------------------------------------------" << endl;
     cout << "---------------------------------------------------------------------------------------------------------------\n" << endl;
     cout << "Welcome to Speed Typing, where keystrokes become your biggest ally in a race against time!" << endl;
@@ -21,9 +22,8 @@ void SpeedTyping::play(WordList& prompt, Game& game, Session& session) {
 
     bool playing = true;
     
-
     while(playing) {
-        int choice = "";
+        int choice = 0;
         cout << "\nChoose an option: \n" << endl;
         cout << "1) Play a Speed Typing Game" << endl;
         cout << "2) View your Current Session Stats" << endl;
@@ -32,20 +32,21 @@ void SpeedTyping::play(WordList& prompt, Game& game, Session& session) {
         cout << "Enter the Number Corresponding to Your Choice: ";
         cin>>choice;
 
-        while(choice != 1 || choice != 2 || choice != 3 || choice != 4) {
+        while(choice != 1 && choice != 2 && choice != 3 && choice != 4) {
             cout << "Invalid Input. Please Enter A Number Between 1-4: ";
             cin>>choice;
         }
 
         switch(choice) {
-            case 1:
+            case 1: {
                 // user wants to play a speed typing game
                 string new_prompt = prompt.generatePrompt();
                 prompt.convertStringToWordList(new_prompt);
                 game.PlayGame(prompt, session);
                 game.reportGameStats(session);
-                game.postGameOptions();
+                //game.postGameOptions();
                 break;
+            }
             case 2: 
                 // user wants to see the session stats
                 session.statOptions();
@@ -53,11 +54,13 @@ void SpeedTyping::play(WordList& prompt, Game& game, Session& session) {
             case 3: 
                 cout << "Currently Implementing" << endl;
                 break;
-            case 4:
+            case 4: {
                 // user wants to stop playing
                 cout << "Thank you for playing speed typing, until next time!!!\n" << endl;
                 playing = false;
                 break;
+            }
+                
         }
 
     }
