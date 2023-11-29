@@ -14,10 +14,12 @@ using namespace std;
 
 // default constructor for a WordList object
 WordList::WordList() {
+    return_indexes = unordered_set<int>();
     string prompt = generatePrompt();
     size = prompt.length();
     words = 0;
     convertStringToWordList(prompt);
+
     
 }
 
@@ -90,6 +92,7 @@ void WordList::printWordList() {
 
         if(i > 0 && go_to_next_line == true && prompt_letters[i - 1] == ' ') {
             cout << endl;
+            return_indexes.insert(i);
             go_to_next_line = false;
         }
 
@@ -102,7 +105,7 @@ void WordList::printWordList() {
 
 void WordList::printLetter(int index) {
 
-    if(((index % 100 == 0) || (index % 100 < 5)) &&  index > 5 && prompt_letters[index - 1] == ' '){
+    if(return_indexes.count(index)){
         cout << endl;
     }
 

@@ -529,5 +529,13 @@ void Game::reportGameStats(Session& session) {
     session.addCharacterSpeeds(character_speed);
 }
 
+// displays the post game options after a user finishes playing a game
+void Game::postGameOptions() {
+
+    start:
+    int choice = 0;
+    
+}
+
 
 

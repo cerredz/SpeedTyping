@@ -4,11 +4,13 @@
 #include<iostream>
 #include <vector>
 #include <string>
+#include <unordered_set>
 using namespace std;
 
 class WordList {
     private:
         vector<char> prompt_letters;
+        unordered_set<int> return_indexes; // indexes where we went to the next line
         int size;
         int words;
 
