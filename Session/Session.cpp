@@ -220,35 +220,34 @@ void Session::stats() {
 }
 
 // print the advanced stats for a session
-void Session::advancedStats() {
+void Session::advancedStats(Game game) {
 
     unordered_set<char> left_hand_characters = {'!', '@', '#','^','6', '$', '%', '1', '2', '3', '4', '5', 'q', 'w', 'e', 'r', 't', 'g', 'f', 'd', 's', 'a', 'z','x','c','v'};
     unordered_set<char> right_hand_characters = {'b', 'h', 'y', '7', '8', '9', '0', 'u', 'i', 'o', 'p', '[', '{', ']', '}', '&', '*', '(', ')', '|', 'j', 'k', 'l', ';', ':', '"', 'n', 'm', ',', '<', '>', '.', '?'};
-    Game temp; // need functions from Game Class
     
-
+    
     cout << "-------------------------------------------------------\n" << endl;
     cout << "Advanced Session Stats\n" << endl;
     cout << "-------------------------------------------------------\n" << endl;
-    temp.displayMostFrequentLetters(characters_typed, 3);
-    temp.printAccuracyOfLetters(characters_typed, 3, true);
-    temp.printAccuracyOfLetters(characters_typed, 3, false);
+    game.displayMostFrequentLetters(characters_typed, 3);
+    game.printAccuracyOfLetters(characters_typed, 3, true);
+    game.printAccuracyOfLetters(characters_typed, 3, false);
 
     cout << "-------------------------------------------------------\n" << endl;
     cout << "Speed Stats\n" << endl;
     cout << "-------------------------------------------------------\n" << endl;
-    temp.printSpeedStats(character_speed);
+    game.printSpeedStats(character_speed);
 
     cout << "-------------------------------------------------------\n" << endl;
     cout << "Hand Stats\n" << endl;
     cout << "-------------------------------------------------------\n" << endl;
-    temp.printHandStats(characters_typed, character_speed);
+    game.printHandStats(characters_typed, character_speed);
     
 }
 
 
 // handles the logic behind whether the user wants to view the general or advanced stats
-void Session::statOptions() {
+void Session::statOptions(Game game) {
 
     start:
     int choice = 0;
@@ -275,11 +274,11 @@ void Session::statOptions() {
             stats();
             break;
         case 2: 
-            advancedStats();
+            advancedStats(game);
             break;
         case 3: 
             stats();
-            advancedStats();
+            advancedStats(game);
             break;
         case 4:
             cout << "Exiting the Session Stats. You Selected to exit. ";

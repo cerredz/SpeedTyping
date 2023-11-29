@@ -5,9 +5,11 @@
 #include <unordered_map>
 #include <unordered_set>
 #include "../Game/Prompt/WordList.h"
-#include "../Session/Session.h"
+
 #include <queue>
 using namespace std;
+
+class Session; 
 
 class Game {
 

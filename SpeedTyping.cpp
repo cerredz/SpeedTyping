@@ -1,6 +1,12 @@
 #include <iostream>
-#include "SpeedTyping.h"
+#include "SpeedTyping.h" 
 #include <string>
+#include "Game/Game.h"  
+#include "Session/Session.h"  
+using namespace std;
+
+class Game;  
+class Session;  
 
 void SpeedTyping::welcome() {
 
@@ -49,7 +55,7 @@ void SpeedTyping::play(WordList& prompt, Game& game, Session& session) {
             }
             case 2: 
                 // user wants to see the session stats
-                session.statOptions();
+                //session.statOptions(game);
                 break;
             case 3: 
                 cout << "Currently Implementing" << endl;
@@ -68,4 +74,3 @@ void SpeedTyping::play(WordList& prompt, Game& game, Session& session) {
 
 }
 
-using namespace std;

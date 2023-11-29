@@ -6,6 +6,8 @@
 #include <vector>
 using namespace std;
 
+
+class Game;
 class Session {
 
 private:
@@ -50,8 +52,8 @@ public:
     pair<int, int> getTotalTimePlayed();
     double getAccuracy();
     void stats();
-    void advancedStats();
-    void statOptions();
+    void advancedStats(Game game);
+    void statOptions(Game game);
 
     
 
