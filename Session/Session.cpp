@@ -245,3 +245,39 @@ void Session::advancedStats() {
     temp.printHandStats(characters_typed, character_speed);
     
 }
+
+
+// handles the logic behind whether the user wants to view the general or advanced stats
+void Session::statOptions() {
+
+    int choice = "";
+    
+    cout << "\nWhat type of stats would you prefer to see?\n" << endl;
+    cout << "1) General Session Stats " << endl;
+    cout << "2) Advanced Session Stats " << endl;
+    cout << "3) Both (1 and 2) " << endl;
+    cout << "4) Back\n" << endl;
+    cout << "Enter the Number Corresponding to Your Choice: ";
+    cin>>choice;
+
+    while(choice != 1 || choice != 2 || choice != 3 || choice != 4) {
+        cout << "Invalid Input. Please Enter A Number Between 1-4: ";
+        cin>>choice;
+    }
+
+    switch(choice) {
+        case 1:
+            stats();
+            break;
+        case 2: 
+            advancedStats();
+            break;
+        case 3: 
+            stats();
+            advancedStats();
+            break;
+        case 4:
+            cout << "Exiting the Session Stats. You Selected to exit. "
+            break;
+    }
+}

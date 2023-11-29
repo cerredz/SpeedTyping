@@ -51,6 +51,7 @@ public:
     double getAccuracy();
     void stats();
     void advancedStats();
+    void statOptions();
 
     
 
