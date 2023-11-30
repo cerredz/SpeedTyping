@@ -225,7 +225,7 @@ void Session::advancedStats(Game game) {
     unordered_set<char> left_hand_characters = {'!', '@', '#','^','6', '$', '%', '1', '2', '3', '4', '5', 'q', 'w', 'e', 'r', 't', 'g', 'f', 'd', 's', 'a', 'z','x','c','v'};
     unordered_set<char> right_hand_characters = {'b', 'h', 'y', '7', '8', '9', '0', 'u', 'i', 'o', 'p', '[', '{', ']', '}', '&', '*', '(', ')', '|', 'j', 'k', 'l', ';', ':', '"', 'n', 'm', ',', '<', '>', '.', '?'};
     
-    
+
     cout << "-------------------------------------------------------\n" << endl;
     cout << "Advanced Session Stats\n" << endl;
     cout << "-------------------------------------------------------\n" << endl;
@@ -289,7 +289,7 @@ void Session::statOptions(Game game) {
     if(!isExiting) {
         // user might want to keep viewing session stats
         string user_input;
-        cout << "Do you want to see more session stats? (yes, no)" << endl;
+        cout << "\nDo you want to see more session stats? (yes, no)" << endl;
         cout << "Enter your answer here: ";
         cin>> user_input;
 
@@ -301,7 +301,7 @@ void Session::statOptions(Game game) {
         if(user_input == "yes") goto start;
         
         cout << "-------------------------------" << endl;
-        cout << "Exiting the Session Stats" << endl;
+        cout << "Exiting the Session Stats..." << endl;
         cout << "-------------------------------" << endl;
     }
     

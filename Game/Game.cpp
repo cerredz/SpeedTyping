@@ -530,12 +530,103 @@ void Game::reportGameStats(Session& session) {
 }
 
 // displays the post game options after a user finishes playing a game
-void Game::postGameOptions() {
+void Game::postGameOptions(bool& play_another_game) {
 
-    start:
-    int choice = 0;
     
+    int choice = 0;
+
+
+    cout << "\n\n------------------------------------------------------------------" << endl; 
+    cout << "You have Completed A Speed Typing Game, What Do You Want to Do Next? \n" << endl;
+    cout << "1) Play Another Game " << endl;
+    cout << "2) View The Game Stats " << endl;
+    cout << "3) Return to the Home Screen\n" << endl;
+    cout << "Enter the Number Corresponding to Your Choice: ";
+    cin>>choice;
+
+    while(choice < 1 && choice > 3) {
+        cout << "Invalid Input. Please Enter A Number Between 1-3: ";
+        cin>>choice;
+    }
+
+    cout << endl;
+    switch(choice) {
+        case 1: {
+            // user wants to play another game
+            play_another_game = true;
+            clearGameStats();
+            break;
+        }
+        case 2: {
+            // user wants to view the stats for a game
+            statOptions();
+            break;
+        }
+        case 3: {
+            cout << "Returning to Home Screen..." << endl;
+            break;
+        }
+            
+    }
 }
 
+// display the stat options for a user after playing a game
+void Game::statOptions() {
+
+    start:
+    string choice = 0;
+    bool isExiting = false;
+    
+    cout << "-------------------------------------------------------" << endl;
+    cout << "What type of stats would you prefer to see?\n" << endl;
+    cout << "1) General Game Stats " << endl;
+    cout << "2) Advanced Game Stats " << endl;
+    cout << "3) Both (1 and 2) " << endl;
+    cout << "4) Back\n" << endl;
+    cout << "Enter the Number Corresponding to Your Choice: ";
+    cin>>choice;
+    cout << endl;
+
+    while(choice != "1" && choice != "2" && choice != "3" && choice != "4") {
+        cout << "Invalid Input. Please Enter A Number Between 1-4: ";
+        cin>>choice;
+    }
+
+    switch(stoi(choice)) {
+        case 1:
+            viewGameStats();
+            break;
+        case 2: 
+            viewAdvancedGameStats();
+            break;
+        case 3: 
+            viewGameStats();
+            viewAdvancedGameStats();
+            break;
+        case 4:
+            cout << "Exiting the Game Stats...";
+            isExiting = true;
+            break;
+    }
+
+    if(!isExiting) {
+        // user might want to keep viewing session stats
+        string user_input;
+        cout << "\nDo you want to see more Game stats? (yes, no)" << endl;
+        cout << "Enter your answer here: ";
+        cin>> user_input;
+
+        while(user_input != "yes" && user_input != "no") {
+            cout << "\nInvalid Answer, please type 'yes' or 'no' " << endl;
+            cout << "Enter your answer here: ";
+            cin>> user_input;
+        }   
+        if(user_input == "yes") goto start;
+        
+        cout << "-------------------------------" << endl;
+        cout << "Exiting the Game Stats..." << endl;
+        cout << "-------------------------------" << endl;
+    }
+}
 
 

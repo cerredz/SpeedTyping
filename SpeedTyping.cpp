@@ -22,6 +22,14 @@ void SpeedTyping::welcome() {
     cout << "---------------------------------------------------------------------------------------------------------------\n" << endl;
 }
 
+// explains to the user how the play the game
+void SpeedTyping::tutorial() {
+    
+    cout << "\n-------------------------" << endl;
+    cout << "How To Play" << endl;
+    cout << "-------------------------\n" << endl;
+
+}
 
 // main play function
 void SpeedTyping::play(WordList& prompt, Game& game, Session& session) {
@@ -29,38 +37,46 @@ void SpeedTyping::play(WordList& prompt, Game& game, Session& session) {
     bool playing = true;
     
     while(playing) {
-        int choice = 0;
+        string choice = "";
         cout << "\nChoose an option: \n" << endl;
         cout << "1) Play a Speed Typing Game" << endl;
-        cout << "2) View your Current Session Stats" << endl;
-        cout << "3) View Your Lifetime Stats" << endl;
-        cout << "4) Exit\n" << endl;
+        cout << "2) How To Play" << endl;
+        cout << "3) View your Current Session Stats" << endl;
+        cout << "4) View Your Lifetime Stats" << endl;
+        cout << "5) Exit\n" << endl;
         cout << "Enter the Number Corresponding to Your Choice: ";
         cin>>choice;
 
-        while(choice != 1 && choice != 2 && choice != 3 && choice != 4) {
+        while(choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice != "5") {
             cout << "Invalid Input. Please Enter A Number Between 1-4: ";
             cin>>choice;
         }
 
-        switch(choice) {
+        switch(stoi(choice)) {
             case 1: {
+                play_game:
+                bool play_another_game = false;
                 // user wants to play a speed typing game
                 string new_prompt = prompt.generatePrompt();
                 prompt.convertStringToWordList(new_prompt);
                 game.PlayGame(prompt, session);
                 game.reportGameStats(session);
-                //game.postGameOptions();
+                game.postGameOptions(play_another_game);
+
+                if(play_another_game) goto play_game; // we want to stay in this case without going back to the start if the user wants to keep playing continuous games
                 break;
             }
             case 2: 
-                // user wants to see the session stats
-                //session.statOptions(game);
+                tutorial();
                 break;
             case 3: 
+                // user wants to see the session stats
+                session.statOptions(game);
+                break;
+            case 4: 
                 cout << "Currently Implementing" << endl;
                 break;
-            case 4: {
+            case 5: {
                 // user wants to stop playing
                 cout << "Thank you for playing speed typing, until next time!!!\n" << endl;
                 playing = false;

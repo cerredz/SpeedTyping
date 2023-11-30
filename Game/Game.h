@@ -52,11 +52,11 @@ public:
     void viewGameStats();
     void viewAdvancedGameStats();
     void reportGameStats(Session& session);
-    void postGameOptions();
     void clearGameStats();
     void printHandSpeedStats(const unordered_map<char, pair<vector<double>, vector<double>>>& map, const unordered_set<char>& letters);
     void displayHandFrequencyStats(const unordered_map<char, pair<int, int>>& map, const unordered_set<char>& letters);
-    
+    void postGameOptions(bool& play_another_game);
+    void statOptions();
 
 };
 
