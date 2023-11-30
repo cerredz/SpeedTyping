@@ -12,7 +12,7 @@ Database::Database() {
     if(!fs::exists(filename)) {
         json games;
         games["game_data"] = json::array();
-
+        
         
         ofstream outputFile(filename);
         outputFile << games.dump(4) << endl;
@@ -20,7 +20,7 @@ Database::Database() {
     } 
 
     // check if the lifetime stats file exists
-    string filename = "player_stats.json"
+    filename = "player_stats.json"
     if(!fs::exists(filename)) {
         json player_stats;
 
