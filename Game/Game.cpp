@@ -532,9 +532,7 @@ void Game::reportGameStats(Session& session) {
 // displays the post game options after a user finishes playing a game
 void Game::postGameOptions(bool& play_another_game) {
 
-    
-    int choice = 0;
-
+    string choice = "";
 
     cout << "\n\n------------------------------------------------------------------" << endl; 
     cout << "You have Completed A Speed Typing Game, What Do You Want to Do Next? \n" << endl;
@@ -544,13 +542,13 @@ void Game::postGameOptions(bool& play_another_game) {
     cout << "Enter the Number Corresponding to Your Choice: ";
     cin>>choice;
 
-    while(choice < 1 && choice > 3) {
+    while(choice != "1" && choice != "2" && choice != "3") {
         cout << "Invalid Input. Please Enter A Number Between 1-3: ";
         cin>>choice;
     }
 
     cout << endl;
-    switch(choice) {
+    switch(stoi(choice)) {
         case 1: {
             // user wants to play another game
             play_another_game = true;
@@ -574,7 +572,7 @@ void Game::postGameOptions(bool& play_another_game) {
 void Game::statOptions() {
 
     start:
-    string choice = 0;
+    string choice = "";
     bool isExiting = false;
     
     cout << "-------------------------------------------------------" << endl;

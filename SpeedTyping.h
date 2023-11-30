@@ -13,8 +13,7 @@ class SpeedTyping {
     public:
         void welcome();
         void play(WordList& prompt, Game& game, Session& session);
-        void tutorial();
-
+        void tutorial(bool& go_to_game);
 };
 
 

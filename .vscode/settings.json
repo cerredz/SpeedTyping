@@ -70,6 +70,8 @@
     "deque": "cpp",
     "queue": "cpp",
     "ranges": "cpp",
-    "span": "cpp"
+    "span": "cpp",
+    "functional": "cpp",
+    "fstream": "cpp"
   }
 }
