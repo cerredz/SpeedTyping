@@ -18,6 +18,7 @@ int main() {
 
     speed_typing.welcome();
     speed_typing.play(prompt, game, session);
+    // g++ Game/Prompt/WordList.cpp Game/Prompt/Sentences.cpp Game/Game.cpp Session/Session.cpp SpeedTyping.cpp Database/Database.cpp Database/DataReader/DataReader.cpp Database/DataWriter/DataWriter.cpp main.cpp -o main
     
     return 0;
 }

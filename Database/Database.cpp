@@ -3,32 +3,11 @@
 
 using namespace std;
 namespace fs = filesystem;
-
-
 Database::Database() {
 
-    // check if games.json file exists
-    string filename = "games.json";
-    if(!fs::exists(filename)) {
-        json games;
-        games["game_data"] = json::array();
-        
-        
-        ofstream outputFile(filename);
-        outputFile << games.dump(4) << endl;
-        outputFile.close();
-    } 
-
-    // check if the lifetime stats file exists
-    filename = "player_stats.json"
-    if(!fs::exists(filename)) {
-        json player_stats;
-
-        player_stats["games_played"] = 0;
-        player_stats["time_played"] = 0;
-
+    vector<string> files_to_create = reader.initialize();
+    if(!files_to_create.size() == 0) {
+        // files missing
+        writer.initialize(files_to_create);
     }
-
-
-
 }
