@@ -9,6 +9,8 @@
 #include <vector>
 #include "../../Game/Game.h"
 using namespace std;
+using json = nlohmann::json;
+
 
 class DataWriter {
 

@@ -18,3 +18,9 @@ Database::Database() {
 void Database::appendGameStats(Game& game) {
     writer.add(game);
 }
+
+// update the player_stats.json file after a game is played
+void Database::updatePlayerStats(Game& game) {
+    
+    json player_stats = reader.read("player_stats.json");
+}

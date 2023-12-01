@@ -6,11 +6,14 @@
 #include <filesystem>
 #include <fstream>
 using namespace std;
+using json = nlohmann::json;
+
 
 class DataReader {
 
     public:
         vector<string> initialize();
+        json read(string filename);
         
 
 };

@@ -22,5 +22,6 @@ class Database {
     public:
         Database(); 
         void appendGameStats(Game& game);
+        void updatePlayerStats(Game& game);
 };
 #endif

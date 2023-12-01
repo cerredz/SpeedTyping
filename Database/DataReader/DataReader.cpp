@@ -25,3 +25,19 @@ vector<string> DataReader::initialize() {
 
     return files;
 }
+
+// returns a json object of a json file where the name of the file is passed in as a parameter
+json DataReader::read(string filename) {
+
+    ifstream file(filename);
+
+    if(!file.is_open()) {
+        cerr << "Error: unable to open file " << filename << endl;
+        return json();
+    }
+
+    json data;
+    file >> data;
+    file.close();
+    return data;
+}
