@@ -73,6 +73,13 @@
     "span": "cpp",
     "functional": "cpp",
     "fstream": "cpp",
-    "filesystem": "cpp"
+    "filesystem": "cpp",
+    "any": "cpp",
+    "array": "cpp",
+    "codecvt": "cpp",
+    "map": "cpp",
+    "numeric": "cpp",
+    "valarray": "cpp",
+    "xtree": "cpp"
   }
 }

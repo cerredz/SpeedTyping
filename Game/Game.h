@@ -44,6 +44,8 @@ public:
     int getLettersPerMinute();
     int getWordsPerMinute();
     int getTimeTaken();
+    unordered_map<char, pair<int, int>> getCharsTyped();
+    unordered_map<char, pair<vector<double>,vector<double>>> getCharSpeeds();
     void displayMostFrequentLetters(unordered_map<char, pair<int, int>>& map, int index);
     void printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int index, bool b);
     void printHandStats(unordered_map<char, pair<int, int>>& map, const unordered_map<char, pair<vector<double>, vector<double>>>& speeds);

@@ -55,7 +55,7 @@ void SpeedTyping::tutorial(bool& go_to_game) {
 }
 
 // main play function
-void SpeedTyping::play(WordList& prompt, Game& game, Session& session) {
+void SpeedTyping::play(WordList& prompt, Game& game, Session& session, Database& database) {
 
     bool playing = true;
     bool go_to_game = false; // used for jumping to playGame() function after user views tutorial
@@ -86,6 +86,7 @@ void SpeedTyping::play(WordList& prompt, Game& game, Session& session) {
                 prompt.convertStringToWordList(new_prompt);
                 game.PlayGame(prompt, session);
                 game.reportGameStats(session);
+                database.appendGameStats(game);
                 game.postGameOptions(play_another_game);
 
                 if(play_another_game) goto play_game; // we want to stay in this case without going back to the start if the user wants to keep playing continuous games

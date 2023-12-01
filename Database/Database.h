@@ -7,6 +7,7 @@
 #include <string>
 #include "json.hpp"
 #include <filesystem>
+#include "../Game/Game.h"
 #include "DataReader/DataReader.h"
 #include "DataWriter/DataWriter.h"
 
@@ -20,5 +21,6 @@ class Database {
 
     public:
         Database(); 
+        void appendGameStats(Game& game);
 };
 #endif

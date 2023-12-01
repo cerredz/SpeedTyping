@@ -1,0 +1,49 @@
+{
+    "General Stats": {
+        "accuracy": 0,
+        "average_game_length": 0.0,
+        "games_played": 0,
+        "letters_per_minute": 0,
+        "most_frequent_character": 0,
+        "time_played": 0,
+        "total_characters_typed": 0,
+        "words_per_minute": 0
+    },
+    "High Scores": {
+        "accuracy": 0,
+        "correct_character_streak": 0,
+        "fastest_game": 0,
+        "incorrect_character_streak": 0,
+        "letters_per_minute": 0,
+        "slowest_game": 0,
+        "total_inputs": 0,
+        "words_per_minute": 0
+    },
+    "Letter Stats": {
+        "a": 0,
+        "b": 0,
+        "c": 0,
+        "d": 0,
+        "e": 0,
+        "f": 0,
+        "g": 0,
+        "h": 0,
+        "i": 0,
+        "j": 0,
+        "k": 0,
+        "l": 0,
+        "m": 0,
+        "n": 0,
+        "p": 0,
+        "q": 0,
+        "r": 0,
+        "s": 0,
+        "t": 0,
+        "u": 0,
+        "v": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0,
+        "z": 0
+    }
+}

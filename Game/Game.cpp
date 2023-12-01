@@ -73,6 +73,14 @@ int Game::getTimeTaken() {
     return time_taken;
 }
 
+unordered_map<char, pair<int, int>> Game::getCharsTyped() {
+    return characters_typed;
+}
+
+unordered_map<char, pair<vector<double>, vector<double>>> Game::getCharSpeeds(){
+    return character_speed;
+}
+
 
 // prints the most frequent characters the user typed in a game
 void Game::displayMostFrequentLetters(unordered_map<char, pair<int, int>>& map, int index) {

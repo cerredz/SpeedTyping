@@ -14,18 +14,69 @@ void DataWriter::initialize(vector<string>& files) {
         if(files[i] == "games.json") {
             // create games data file
             json games;
-            games["game_data"] = json::array();
-
+            games["games_data"] = json::array();
             
             ofstream outputFile(files[i]);
             outputFile << games.dump(4) << endl;
             outputFile.close();
+
         } else if (files[i] == "player_stats.json") {
             // create player stats file
             json player_stats;
+            player_stats["General Stats"] = json::object();
+            player_stats["High Scores"] = json::object();
+            player_stats["Letter Stats"] = json::object();
 
-            player_stats["games_played"] = 0;
-            player_stats["time_played"] = 0;
+            // add the general player stats to the file
+            player_stats["General Stats"]["games_played"] = 0;
+            player_stats["General Stats"]["time_played"] = 0;
+            player_stats["General Stats"]["average_game_length"] = 0.0;
+            player_stats["General Stats"]["total_characters_typed"] = 0;
+            player_stats["General Stats"]["accuracy"] = 0;
+            player_stats["General Stats"]["letters_per_minute"] = 0;
+            player_stats["General Stats"]["words_per_minute"] = 0;
+            player_stats["General Stats"]["most_frequent_character"] = 0;
+
+
+            // add the high scores to the file
+            player_stats["High Scores"]["total_inputs"] = 0;
+            player_stats["High Scores"]["fastest_game"] = 0;
+            player_stats["High Scores"]["slowest_game"] = 0;
+            player_stats["High Scores"]["accuracy"] = 0;
+            player_stats["High Scores"]["correct_character_streak"] = 0;
+            player_stats["High Scores"]["incorrect_character_streak"] = 0;
+            player_stats["High Scores"]["letters_per_minute"] = 0;
+            player_stats["High Scores"]["words_per_minute"] = 0;
+
+            // add the character stats to the file
+            player_stats["Letter Stats"]["a"] = 0;
+            player_stats["Letter Stats"]["b"] = 0;
+            player_stats["Letter Stats"]["c"] = 0;
+            player_stats["Letter Stats"]["d"] = 0;
+            player_stats["Letter Stats"]["e"] = 0;
+            player_stats["Letter Stats"]["f"] = 0;
+            player_stats["Letter Stats"]["g"] = 0;
+            player_stats["Letter Stats"]["h"] = 0;
+            player_stats["Letter Stats"]["i"] = 0;
+            player_stats["Letter Stats"]["j"] = 0;
+            player_stats["Letter Stats"]["k"] = 0;
+            player_stats["Letter Stats"]["l"] = 0;
+            player_stats["Letter Stats"]["m"] = 0;
+            player_stats["Letter Stats"]["n"] = 0;
+            player_stats["Letter Stats"]["p"] = 0;
+            player_stats["Letter Stats"]["p"] = 0;
+            player_stats["Letter Stats"]["q"] = 0;
+            player_stats["Letter Stats"]["r"] = 0;
+            player_stats["Letter Stats"]["s"] = 0;
+            player_stats["Letter Stats"]["t"] = 0;
+            player_stats["Letter Stats"]["u"] = 0;
+            player_stats["Letter Stats"]["v"] = 0;
+            player_stats["Letter Stats"]["w"] = 0;
+            player_stats["Letter Stats"]["x"] = 0;
+            player_stats["Letter Stats"]["y"] = 0;
+            player_stats["Letter Stats"]["z"] = 0;
+
+
             ofstream outputFile(files[i]);
             outputFile << player_stats.dump(4) << endl;
             outputFile.close();
@@ -33,3 +84,82 @@ void DataWriter::initialize(vector<string>& files) {
     }
 }
 
+
+// add the stats from a game to the games.json file
+void DataWriter::add(Game& game) {
+
+    string filename = "games.json";
+
+    // Create a JSON object to represent the game data
+    json gameData;
+    gameData["total_inputs"] = game.getTotalInputs();
+    gameData["total_correct"] = game.getTotalCharactersCorrect();
+    gameData["total_incorrect"] = game.getTotalCharactersMissed();
+    gameData["correct_streak"] = game.getLongestCorrectStreak();
+    gameData["incorrect_streak"] = game.getLongestMissedStreak();
+    gameData["accuracy"] = game.getAccuracy();
+    gameData["letters_per_minute"] = game.getLettersPerMinute();
+    gameData["words_per_minute"] = game.getWordsPerMinute();
+    gameData["time_taken"] = game.getTimeTaken();
+
+
+    // add characters typed
+    json chars_typed;
+    for(const auto& entry : game.getCharsTyped()) {
+        char letter = entry.first;
+        int correct = entry.second.first;
+        int incorrect = entry.second.second;
+        json char_data = {
+            {"correct", correct},
+            {"incorrect", incorrect}
+        };
+        chars_typed[string(1, letter)] = char_data;
+    }
+    gameData["typed_char_data"] = chars_typed;
+
+    // add character speeds
+    json speed_stats;
+
+    for (const auto& entry : game.getCharSpeeds()) {
+        char letter = entry.first;
+        vector<double> correct = entry.second.first;
+        vector<double> incorrect = entry.second.second;
+
+        // Check if either the correct or incorrect vectors have data
+        if (!correct.empty() || !incorrect.empty()) {
+            json char_data;
+            
+            // Add data only if the vector is not empty
+            if (!correct.empty()) {
+                char_data["correct"] = json::array();
+                for (double speed : correct) {
+                    char_data["correct"].push_back(speed);
+                }
+            }
+
+            // Add data only if the vector is not empty
+            if (!incorrect.empty()) {
+                char_data["incorrect"] = json::array();
+                for (double speed : incorrect) {
+                    char_data["incorrect"].push_back(speed);
+                }
+            }
+
+            speed_stats[string(1, letter)] = char_data;
+        }
+    }
+
+    gameData["speed_char_data"] = speed_stats;
+
+
+    // add gameData to the end of the json file
+    ifstream inputFile(filename);
+    json games_data;
+    inputFile >> games_data;
+    inputFile.close();
+
+    games_data["games_data"].push_back(gameData);
+    ofstream outputFile(filename);
+    outputFile << games_data << endl;
+    outputFile.close();
+}

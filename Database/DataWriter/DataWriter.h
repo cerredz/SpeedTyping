@@ -5,11 +5,15 @@
 #include "../json.hpp"
 #include <filesystem>
 #include <fstream>
+#include <unordered_map>
+#include <vector>
+#include "../../Game/Game.h"
 using namespace std;
 
 class DataWriter {
 
     public:
         void initialize(vector<string>& files);
+        void add(Game& game);
 };
 #endif
