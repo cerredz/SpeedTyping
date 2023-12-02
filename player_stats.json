@@ -2,12 +2,20 @@
     "General Stats": {
         "accuracy": 0,
         "average_game_length": 0.0,
-        "games_played": 0,
-        "letters_per_minute": 0,
-        "most_frequent_character": 0,
-        "time_played": 0,
-        "total_characters_typed": 0,
-        "words_per_minute": 0
+        "games_played": 2,
+        "letters_per_minute": 420,
+        "most_accurate_character": {
+            "accuracy": 0.0,
+            "character": ""
+        },
+        "most_frequent_character": {
+            "character": "",
+            "inputs": 0
+        },
+        "time_played": 18,
+        "total_characters_typed": 138,
+        "words_per_minute": 0,
+        "words_typed": 28
     },
     "High Scores": {
         "accuracy": 0,
@@ -20,30 +28,265 @@
         "words_per_minute": 0
     },
     "Letter Stats": {
-        "a": 0,
-        "b": 0,
-        "c": 0,
-        "d": 0,
-        "e": 0,
-        "f": 0,
-        "g": 0,
-        "h": 0,
-        "i": 0,
-        "j": 0,
-        "k": 0,
-        "l": 0,
-        "m": 0,
-        "n": 0,
-        "p": 0,
-        "q": 0,
-        "r": 0,
-        "s": 0,
-        "t": 0,
-        "u": 0,
-        "v": 0,
-        "w": 0,
-        "x": 0,
-        "y": 0,
-        "z": 0
+        "!": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "\"": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "#": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "$": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "%": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "&": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "'": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "(": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        ")": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "*": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "+": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        ",": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "-": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        ".": {
+            "correct": 2,
+            "incorrect": 0
+        },
+        "/": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "0": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "1": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "2": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "3": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "4": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "5": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "6": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "7": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "8": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "9": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        ":": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        ";": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "<": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "=": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        ">": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "?": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "@": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "[": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "]": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "^": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "_": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "a": {
+            "correct": 10,
+            "incorrect": 0
+        },
+        "b": {
+            "correct": 1,
+            "incorrect": 0
+        },
+        "c": {
+            "correct": 7,
+            "incorrect": 0
+        },
+        "d": {
+            "correct": 4,
+            "incorrect": 0
+        },
+        "e": {
+            "correct": 13,
+            "incorrect": 1
+        },
+        "f": {
+            "correct": 1,
+            "incorrect": 1
+        },
+        "g": {
+            "correct": 3,
+            "incorrect": 0
+        },
+        "h": {
+            "correct": 4,
+            "incorrect": 0
+        },
+        "i": {
+            "correct": 11,
+            "incorrect": 0
+        },
+        "j": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "k": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "l": {
+            "correct": 5,
+            "incorrect": 0
+        },
+        "m": {
+            "correct": 7,
+            "incorrect": 1
+        },
+        "n": {
+            "correct": 13,
+            "incorrect": 0
+        },
+        "o": {
+            "correct": 11,
+            "incorrect": 0
+        },
+        "p": {
+            "correct": 2,
+            "incorrect": 0
+        },
+        "q": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "r": {
+            "correct": 6,
+            "incorrect": 0
+        },
+        "s": {
+            "correct": 4,
+            "incorrect": 0
+        },
+        "t": {
+            "correct": 7,
+            "incorrect": 0
+        },
+        "u": {
+            "correct": 1,
+            "incorrect": 0
+        },
+        "v": {
+            "correct": 2,
+            "incorrect": 3
+        },
+        "w": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "x": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "y": {
+            "correct": 1,
+            "incorrect": 1
+        },
+        "z": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "{": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "|": {
+            "correct": 0,
+            "incorrect": 0
+        },
+        "}": {
+            "correct": 0,
+            "incorrect": 0
+        }
     }
 }

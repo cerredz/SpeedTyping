@@ -336,7 +336,7 @@ void Game::PlayGame(WordList& prompt, Session& session) {
     chrono::duration<double> duration = stop - start;
     time_taken = duration.count();
     accuracy = static_cast<double>(total_characters_correct) / total_inputs * 100.0;
-    letters_per_minute = (total_inputs / duration.count()) * 60;
+    letters_per_minute = static_cast<int>((total_inputs / duration.count()) * 60);
     words_per_minute = (prompt.getWords() / duration.count()) * 60;
 
 }

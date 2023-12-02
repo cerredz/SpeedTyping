@@ -41,3 +41,32 @@ json DataReader::read(string filename) {
     file.close();
     return data;
 }
+
+// adds the characters typed for a game to the letter stats in the player_stats.json file
+void DataReader::updateLetterStats(unordered_map<char, pair<int, int>> characters_typed, json& stats) {
+
+    
+    for(const auto& entry : characters_typed) {
+        char letter = entry.first;
+
+        int game_correct = entry.second.first;
+        int game_incorrect = entry.second.second;
+
+        // Check if the character exists in the JSON file
+        if (stats["Letter Stats"].count(string(1, letter)) == 0) {
+            cout << letter << "does not exist" << endl;
+            // If not, create it with "correct" and "incorrect" set to 0
+            stats["Letter Stats"][string(1, letter)] = {
+                {"correct", 0},
+                {"incorrect", 0}
+            };
+        }
+
+        int total_correct = stats["Letter Stats"][string(1, letter)]["correct"].get<int>();
+        int total_incorrect = stats["Letter Stats"][string(1, letter)]["incorrect"].get<int>();
+
+        stats["Letter Stats"][string(1, letter)]["correct"] = total_correct + game_correct;
+        stats["Letter Stats"][string(1, letter)]["incorrect"] = total_incorrect + game_incorrect;
+    }
+
+}

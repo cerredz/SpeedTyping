@@ -86,7 +86,8 @@ void SpeedTyping::play(WordList& prompt, Game& game, Session& session, Database&
                 prompt.convertStringToWordList(new_prompt);
                 game.PlayGame(prompt, session);
                 game.reportGameStats(session);
-                database.appendGameStats(game);
+                database.appendGameStats(game, prompt);
+                database.updatePlayerStats(game, prompt);
                 game.postGameOptions(play_another_game);
 
                 if(play_another_game) goto play_game; // we want to stay in this case without going back to the start if the user wants to keep playing continuous games

@@ -16,6 +16,7 @@ class DataWriter {
 
     public:
         void initialize(vector<string>& files);
-        void add(Game& game);
+        void add(Game& game, WordList& prompt);
+        void write(string filename, json& stats);
 };
 #endif

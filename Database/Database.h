@@ -8,6 +8,7 @@
 #include "json.hpp"
 #include <filesystem>
 #include "../Game/Game.h"
+#include "../Game/Prompt/WordList.h"
 #include "DataReader/DataReader.h"
 #include "DataWriter/DataWriter.h"
 
@@ -21,7 +22,7 @@ class Database {
 
     public:
         Database(); 
-        void appendGameStats(Game& game);
-        void updatePlayerStats(Game& game);
+        void appendGameStats(Game& game, WordList& prompt);
+        void updatePlayerStats(Game& game, WordList& prompt);
 };
 #endif

@@ -35,7 +35,15 @@ void DataWriter::initialize(vector<string>& files) {
             player_stats["General Stats"]["accuracy"] = 0;
             player_stats["General Stats"]["letters_per_minute"] = 0;
             player_stats["General Stats"]["words_per_minute"] = 0;
-            player_stats["General Stats"]["most_frequent_character"] = 0;
+            player_stats["General Stats"]["most_frequent_character"] = {
+                {"character", ""},
+                {"inputs", 0}
+            };
+            player_stats["General Stats"]["most_accurate_character"] = {
+                {"character", ""},
+                {"accuracy", 0.0}
+            };
+            player_stats["General Stats"]["words_typed"] = 0;
 
 
             // add the high scores to the file
@@ -49,32 +57,28 @@ void DataWriter::initialize(vector<string>& files) {
             player_stats["High Scores"]["words_per_minute"] = 0;
 
             // add the character stats to the file
-            player_stats["Letter Stats"]["a"] = 0;
-            player_stats["Letter Stats"]["b"] = 0;
-            player_stats["Letter Stats"]["c"] = 0;
-            player_stats["Letter Stats"]["d"] = 0;
-            player_stats["Letter Stats"]["e"] = 0;
-            player_stats["Letter Stats"]["f"] = 0;
-            player_stats["Letter Stats"]["g"] = 0;
-            player_stats["Letter Stats"]["h"] = 0;
-            player_stats["Letter Stats"]["i"] = 0;
-            player_stats["Letter Stats"]["j"] = 0;
-            player_stats["Letter Stats"]["k"] = 0;
-            player_stats["Letter Stats"]["l"] = 0;
-            player_stats["Letter Stats"]["m"] = 0;
-            player_stats["Letter Stats"]["n"] = 0;
-            player_stats["Letter Stats"]["p"] = 0;
-            player_stats["Letter Stats"]["p"] = 0;
-            player_stats["Letter Stats"]["q"] = 0;
-            player_stats["Letter Stats"]["r"] = 0;
-            player_stats["Letter Stats"]["s"] = 0;
-            player_stats["Letter Stats"]["t"] = 0;
-            player_stats["Letter Stats"]["u"] = 0;
-            player_stats["Letter Stats"]["v"] = 0;
-            player_stats["Letter Stats"]["w"] = 0;
-            player_stats["Letter Stats"]["x"] = 0;
-            player_stats["Letter Stats"]["y"] = 0;
-            player_stats["Letter Stats"]["z"] = 0;
+            for (char c = 'a'; c <= 'z'; ++c) {
+                player_stats["Letter Stats"][string(1, c)] = {
+                    {"correct", 0},
+                    {"incorrect", 0}
+                };
+            }
+
+            for (char c = '0'; c <= '9'; ++c) {
+                player_stats["Letter Stats"][string(1, c)] = {
+                    {"correct", 0},
+                    {"incorrect", 0}
+                };
+            }
+
+            // Add common special characters
+            const string special_characters = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/";
+            for (char c : special_characters) {
+                player_stats["Letter Stats"][string(1, c)] = {
+                    {"correct", 0},
+                    {"incorrect", 0}
+                };
+            }
 
 
             ofstream outputFile(files[i]);
@@ -86,7 +90,7 @@ void DataWriter::initialize(vector<string>& files) {
 
 
 // add the stats from a game to the games.json file
-void DataWriter::add(Game& game) {
+void DataWriter::add(Game& game, WordList& prompt) {
 
     string filename = "games.json";
 
@@ -101,6 +105,7 @@ void DataWriter::add(Game& game) {
     gameData["letters_per_minute"] = game.getLettersPerMinute();
     gameData["words_per_minute"] = game.getWordsPerMinute();
     gameData["time_taken"] = game.getTimeTaken();
+    gameData["words_typed"] = prompt.getWords();
 
 
     // add characters typed
@@ -162,4 +167,21 @@ void DataWriter::add(Game& game) {
     ofstream outputFile(filename);
     outputFile << games_data << endl;
     outputFile.close();
+}
+
+
+// takes the inputted json object and ouputs it to the inputted json file name
+void DataWriter::write(string filename, json& stats) {
+
+    ofstream file(filename);
+
+
+    if(!file.is_open()) {
+        // file not found
+        cerr << "Error: Unable to Open Player Stats Output File (restart program)" << endl;
+        return;
+    }
+
+    file << stats.dump(4) << endl;
+    file.close();
 }
