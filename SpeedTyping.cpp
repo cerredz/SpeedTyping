@@ -103,7 +103,8 @@ void SpeedTyping::play(WordList& prompt, Game& game, Session& session, Database&
                 session.statOptions(game);
                 break;
             case 4: 
-                cout << "Currently Implementing" << endl;
+                database.stats();
+                
                 break;
             case 5: {
                 // user wants to stop playing

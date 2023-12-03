@@ -24,5 +24,6 @@ class Database {
         Database(); 
         void appendGameStats(Game& game, WordList& prompt);
         void updatePlayerStats(Game& game, WordList& prompt);
+        void stats();
 };
 #endif

@@ -150,3 +150,28 @@ pair<int, char> DataReader::frequent(unordered_map<char, pair<int, int>>& map) {
 
     return heap.top();
 }
+
+// outputs the general stats of the player_stats.json file
+void DataReader::general() {
+    json stats = read("player_stats.json");
+
+    if(stats.empty()) {
+        cout << "Error: Player Stats not Found, Please Restart Program" << endl;
+        return;
+    }
+
+    cout << "\n-------------------------------------------------" << endl;
+    cout << "General Lifetime Stats: \n" << endl;
+
+    cout << "Games Played: " << stats["General Stats"]["games_played"].get<int>() << endl;
+    cout << "Time Played: " << stats["General Stats"]["time_played"].get<int>() << " seconds" << endl;
+    cout << "Average Game Length: " << stats["General Stats"]["average_game_length"].get<int>() << endl;
+    cout << "Accuracy: " << fixed << setprecision(2) << stats["General Stats"]["accuracy"].get<double>() << endl;
+    cout << "Total Characters Typed: " << stats["General Stats"]["total_characters_typed"].get<int>() << endl;
+    cout << "Total Words Typed: " << stats["General Stats"]["words_typed"].get<int>() << endl;
+    cout << "Letters Per Minute: " << stats["General Stats"]["letters_per_minute"].get<int>() << endl;
+    cout << "Words Per minute: " << stats["General Stats"]["words_per_minute"].get<int>() << endl;
+    cout << "Most Accurate Character: " << stats["General Stats"]["most_accurate_character"]["character"].get<string>() << " - " << stats["General Stats"]["most_accurate_character"]["accuracy"].get<double>() << endl;
+    cout << "Most Frequent Character: " << stats["General Stats"]["most_frequent_character"]["character"].get<string>() <<  " - " << stats["General Stats"]["most_frequent_character"]["inputs"].get<int>() << endl;
+    cout << endl;
+}

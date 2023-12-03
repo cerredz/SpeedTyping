@@ -88,7 +88,55 @@ void Database::updatePlayerStats(Game& game, WordList& prompt) {
 
 
     writer.write("player_stats.json", player_stats);
+}
+
+void Database::stats() {
+    database_stats:
+    string choice = "";
+
+    cout << "\n---------------------------------------------------" << endl;
+    cout << "What Type of Stats Would You Prefer to See?\n" << endl;
+
+    cout << "1) General Stats" << endl;
+    cout << "2) Advanced Stats" << endl;
+    cout << "3) Letter Stats" << endl;
+    cout << "4) High Scores" << endl;
+    cout << "5) Return to Home Screen" << endl;
+    cout << "\nEnter the Number Corresponding to your Choice: ";
+    cin >> choice;
+    while(choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice != "5"){
+        cout << "Invalid Input. Please Enter a Number Between 1-5:";
+        cin >> choice;
+    }
+
+    switch(stoi(choice)) {
+        case 1: {
+            reader.general();
+            break;
+        }
+        case 2: {
+
+        }
+        case 3: {
+            //reader.letterStats();
+            break;
+        }
+        case 4: {
+            //reader.highScores();
+            break;
+        }
+    }
+
+    cout << "\n---------------------------------------------------" << endl;
+    cout << "Do you want to view more lifetime Stats?(yes / no): ";
+    cin >> choice;
+
+    while(choice != "yes" && choice != "no"){
+        cout << "Invalid Input. Please Enter Either 'yes' or 'no' ";
+        cin >> choice;
+    }
+
+    if(choice == "yes") goto database_stats;
     
 
-    
 }

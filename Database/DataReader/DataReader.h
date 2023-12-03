@@ -9,6 +9,8 @@
 #include <unordered_map>
 #include <cmath>
 #include <queue>
+#include <iomanip>  
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -23,5 +25,6 @@ class DataReader {
         float accuracy(unordered_map<char, pair<int, int>>& map);
         pair<double, char> accurate(unordered_map<char, pair<int, int>>& map);
         pair<int, char> frequent(unordered_map<char, pair<int, int>>& map);
+        void general();
 };
 #endif
