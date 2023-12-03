@@ -48,7 +48,7 @@ void DataWriter::initialize(vector<string>& files) {
 
             // add the high scores to the file
             player_stats["High Scores"]["total_inputs"] = 0;
-            player_stats["High Scores"]["fastest_game"] = 0;
+            player_stats["High Scores"]["fastest_game"] = 10000;
             player_stats["High Scores"]["slowest_game"] = 0;
             player_stats["High Scores"]["accuracy"] = 0;
             player_stats["High Scores"]["correct_character_streak"] = 0;

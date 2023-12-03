@@ -61,9 +61,32 @@ void Database::updatePlayerStats(Game& game, WordList& prompt) {
     player_stats["General Stats"]["most_frequent_character"]["inputs"] = most_freq_char.first;
     player_stats["General Stats"]["most_frequent_character"]["character"] = string(1, most_freq_char.second);
 
-
-
     // update high scores
+    double most_accurate = max(player_stats["High Scores"]["accuracy"].get<double>(), game.getAccuracy());
+    player_stats["High Scores"]["accuracy"] = most_accurate;
+
+    int slowest_game = max(player_stats["High Scores"]["slowest_game"].get<int>(), game.getTimeTaken());
+    player_stats["High Scores"]["slowest_game"] = slowest_game;
+
+    int fastest_game = min(player_stats["High Scores"]["fastest_game"].get<int>(), game.getTimeTaken());
+    player_stats["High Scores"]["fastest_game"] = fastest_game;
+
+    int correct_streak = max(player_stats["High Scores"]["correct_character_streak"].get<int>(), game.getLongestCorrectStreak());
+    player_stats["High Scores"]["correct_character_streak"] = correct_streak;
+
+    int incorrect_streak = max(player_stats["High Scores"]["incorrect_character_streak"].get<int>(), game.getLongestMissedStreak());
+    player_stats["High Scores"]["incorrect_character_streak"] = incorrect_streak;
+
+    int highest_lpm = max(player_stats["High Scores"]["letters_per_minute"].get<int>(), game.getLettersPerMinute());
+    player_stats["High Scores"]["letters_per_minute"] = highest_lpm;
+
+    int highest_wpm = max(player_stats["High Scores"]["words_per_minute"].get<int>(), game.getWordsPerMinute());
+    player_stats["High Scores"]["words_per_minute"] = highest_wpm;
+
+    int highest_inputs = max(player_stats["High Scores"]["total_inputs"].get<int>(), game.getTotalInputs());
+    player_stats["High Scores"]["total_inputs"] = highest_inputs;
+
+
     writer.write("player_stats.json", player_stats);
     
 
