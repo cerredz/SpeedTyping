@@ -26,5 +26,6 @@ class DataReader {
         pair<double, char> accurate(unordered_map<char, pair<int, int>>& map);
         pair<int, char> frequent(unordered_map<char, pair<int, int>>& map);
         void general();
+        void highscores();
 };
 #endif

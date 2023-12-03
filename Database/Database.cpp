@@ -122,7 +122,7 @@ void Database::stats() {
             break;
         }
         case 4: {
-            //reader.highScores();
+            reader.highscores();
             break;
         }
     }
