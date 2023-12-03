@@ -1,21 +1,21 @@
 {
     "General Stats": {
-        "accuracy": 0,
-        "average_game_length": 0.0,
-        "games_played": 2,
-        "letters_per_minute": 420,
+        "accuracy": 94.4000015258789,
+        "average_game_length": 9,
+        "games_played": 19,
+        "letters_per_minute": 360,
         "most_accurate_character": {
-            "accuracy": 0.0,
-            "character": ""
+            "accuracy": 100.0,
+            "character": "z"
         },
         "most_frequent_character": {
-            "character": "",
-            "inputs": 0
+            "character": "e",
+            "inputs": 112
         },
-        "time_played": 18,
-        "total_characters_typed": 138,
-        "words_per_minute": 0,
-        "words_typed": 28
+        "time_played": 175,
+        "total_characters_typed": 1133,
+        "words_per_minute": 60,
+        "words_typed": 311
     },
     "High Scores": {
         "accuracy": 0,
@@ -28,6 +28,10 @@
         "words_per_minute": 0
     },
     "Letter Stats": {
+        " ": {
+            "correct": 0,
+            "incorrect": 2
+        },
         "!": {
             "correct": 0,
             "incorrect": 0
@@ -53,7 +57,7 @@
             "incorrect": 0
         },
         "'": {
-            "correct": 0,
+            "correct": 2,
             "incorrect": 0
         },
         "(": {
@@ -73,16 +77,16 @@
             "incorrect": 0
         },
         ",": {
-            "correct": 0,
+            "correct": 1,
             "incorrect": 0
         },
         "-": {
-            "correct": 0,
+            "correct": 2,
             "incorrect": 0
         },
         ".": {
-            "correct": 2,
-            "incorrect": 0
+            "correct": 19,
+            "incorrect": 1
         },
         "/": {
             "correct": 0,
@@ -101,8 +105,8 @@
             "incorrect": 0
         },
         "3": {
-            "correct": 0,
-            "incorrect": 0
+            "correct": 1,
+            "incorrect": 2
         },
         "4": {
             "correct": 0,
@@ -156,6 +160,10 @@
             "correct": 0,
             "incorrect": 0
         },
+        "D": {
+            "correct": 0,
+            "incorrect": 1
+        },
         "[": {
             "correct": 0,
             "incorrect": 0
@@ -173,107 +181,107 @@
             "incorrect": 0
         },
         "a": {
-            "correct": 10,
-            "incorrect": 0
+            "correct": 81,
+            "incorrect": 1
         },
         "b": {
-            "correct": 1,
+            "correct": 12,
             "incorrect": 0
         },
         "c": {
-            "correct": 7,
-            "incorrect": 0
+            "correct": 38,
+            "incorrect": 1
         },
         "d": {
-            "correct": 4,
+            "correct": 29,
             "incorrect": 0
         },
         "e": {
-            "correct": 13,
-            "incorrect": 1
+            "correct": 107,
+            "incorrect": 5
         },
         "f": {
-            "correct": 1,
+            "correct": 19,
             "incorrect": 1
         },
         "g": {
-            "correct": 3,
-            "incorrect": 0
+            "correct": 21,
+            "incorrect": 1
         },
         "h": {
-            "correct": 4,
-            "incorrect": 0
+            "correct": 34,
+            "incorrect": 3
         },
         "i": {
-            "correct": 11,
-            "incorrect": 0
+            "correct": 85,
+            "incorrect": 2
         },
         "j": {
             "correct": 0,
             "incorrect": 0
         },
         "k": {
-            "correct": 0,
+            "correct": 7,
             "incorrect": 0
         },
         "l": {
-            "correct": 5,
+            "correct": 43,
             "incorrect": 0
         },
         "m": {
-            "correct": 7,
+            "correct": 36,
             "incorrect": 1
         },
         "n": {
-            "correct": 13,
-            "incorrect": 0
+            "correct": 74,
+            "incorrect": 4
         },
         "o": {
-            "correct": 11,
-            "incorrect": 0
+            "correct": 59,
+            "incorrect": 2
         },
         "p": {
-            "correct": 2,
-            "incorrect": 0
+            "correct": 23,
+            "incorrect": 1
         },
         "q": {
             "correct": 0,
             "incorrect": 0
         },
         "r": {
-            "correct": 6,
-            "incorrect": 0
+            "correct": 53,
+            "incorrect": 4
         },
         "s": {
-            "correct": 4,
-            "incorrect": 0
+            "correct": 65,
+            "incorrect": 2
         },
         "t": {
-            "correct": 7,
-            "incorrect": 0
+            "correct": 61,
+            "incorrect": 5
         },
         "u": {
-            "correct": 1,
-            "incorrect": 0
+            "correct": 26,
+            "incorrect": 6
         },
         "v": {
-            "correct": 2,
-            "incorrect": 3
+            "correct": 11,
+            "incorrect": 8
         },
         "w": {
-            "correct": 0,
-            "incorrect": 0
+            "correct": 7,
+            "incorrect": 1
         },
         "x": {
-            "correct": 0,
+            "correct": 3,
             "incorrect": 0
         },
         "y": {
-            "correct": 1,
+            "correct": 7,
             "incorrect": 1
         },
         "z": {
-            "correct": 0,
+            "correct": 1,
             "incorrect": 0
         },
         "{": {

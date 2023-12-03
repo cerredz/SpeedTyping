@@ -70,3 +70,83 @@ void DataReader::updateLetterStats(unordered_map<char, pair<int, int>> character
     }
 
 }
+
+// return the letter stats in the player_stats json file in the form of a map
+unordered_map<char, pair<int, int>> DataReader::letters(json& file) {
+    
+    json letter_stats = file["Letter Stats"];
+    unordered_map<char, pair<int, int>> result;
+
+    for (const auto& entry : letter_stats.items()) {
+
+        try {
+            char letter = entry.key()[0]; // Get the letter directly from the key
+            int correct = entry.value()["correct"].get<int>();
+            int incorrect = entry.value()["incorrect"].get<int>();
+
+            result[letter] = make_pair(correct, incorrect);
+        } catch (const exception& e) {
+            cerr << "Error processing entry: " << e.what() << endl;
+        }
+    }
+
+
+    return result;
+}
+
+// given the letter stats, return the accuracy of the letters typed
+float DataReader::accuracy(unordered_map<char, pair<int, int>>& map) {
+
+    int total_correct = 0, total_incorrect = 0;
+
+    for(const auto& entry : map) {
+
+        int correct = entry.second.first;
+        int incorrect = entry.second.second;
+
+        total_correct += correct;
+        total_incorrect += incorrect;
+    }
+
+    double acc = (static_cast<double>(total_correct) / static_cast<double>(total_correct + total_incorrect)) * 100;
+    float res = round(acc * 100) / 100;
+    return res;
+}
+
+// returns the most accurate character and its accuracy in a map
+pair<double, char> DataReader::accurate(unordered_map<char, pair<int, int>>& map) {
+
+    priority_queue<pair<double, char>> heap;
+
+    for(const auto& entry : map) {
+        
+        char letter = entry.first;
+        int correct = entry.second.first;
+        int incorrect = entry.second.second;
+        if(correct == 0 && incorrect == 0){
+            continue;
+        }
+
+        double accuracy = static_cast<double>(correct) / static_cast<double>(correct + incorrect);
+        heap.push({accuracy, letter});
+    }
+
+    cout << heap.top().first << ": " << heap.top().second << endl;
+    return heap.top();
+}
+
+// return the most frequent character and its inputs in a map
+pair<int, char> DataReader::frequent(unordered_map<char, pair<int, int>>& map) {
+    priority_queue<pair<int, char>> heap;
+
+    for(const auto& entry : map) {
+        char letter = entry.first;
+        int correct = entry.second.first;
+        int incorrect = entry.second.second;
+        heap.push({correct + incorrect, letter});
+    }
+
+    cout << heap.top().first << ": " << heap.top().second << endl;
+
+    return heap.top();
+}
