@@ -27,5 +27,6 @@ class DataReader {
         pair<int, char> frequent(unordered_map<char, pair<int, int>>& map);
         void general();
         void highscores();
+        void letterstats();
 };
 #endif

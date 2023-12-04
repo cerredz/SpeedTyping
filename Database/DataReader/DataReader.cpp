@@ -176,7 +176,7 @@ void DataReader::general() {
     cout << endl;
 }
 
-// outputs the high schores of the player_stats.json file
+// outputs the high scores of the player_stats.json file
 void DataReader::highscores() {
 
     json stats = read("player_stats.json");
@@ -193,8 +193,45 @@ void DataReader::highscores() {
     cout << "Most Accurate Game: " << fixed << setprecision(2) << stats["High Scores"]["accuracy"].get<double>() << endl;
     cout << "Longest Correct Character Streak: " << stats["High Scores"]["correct_character_streak"].get<int>() << endl;
     cout << "Longest Incorrect Character Streak: " << stats["High Scores"]["incorrect_character_streak"].get<int>() << endl;
-    cout << "Fastest Game: " << stats["High Scores"]["fastest_game"].get<int>() << endl;
-    cout << "Slowest Game: " << stats["High Scores"]["slowest_game"].get<int>() << endl;
+    cout << "Fastest Game: " << stats["High Scores"]["fastest_game"].get<int>() << "seconds" << endl;
+    cout << "Slowest Game: " << stats["High Scores"]["slowest_game"].get<int>() << "seconds" << endl;
     cout << "Most Letters Per Minute: " << stats["High Scores"]["letters_per_minute"].get<int>() << endl;
     cout << "Most Words Per Minute: " << stats["High Scores"]["words_per_minute"].get<int>() << endl;
+
+}
+
+// outputs the letter stats of the player_stats.json file
+void DataReader::letterstats() {
+    
+    json stats = read("player_stats.json");
+
+    if(stats.empty()) {
+        cout << "Error: Player Stats not Found, Please Restart Program" << endl;
+        return;
+    }
+
+    cout << "\n-------------------------------------------------" << endl;
+    cout << "Lifetime Letter Stats: \n" << endl;
+    cout << "   correct / incorrect\n" << endl;
+    for(char c = 'a'; c <= 'z'; c++) {
+        int correct = stats["Letter Stats"][string(1, c)]["correct"].get<int>();
+        int incorrect = stats["Letter Stats"][string(1, c)]["incorrect"].get<int>();
+
+        cout << c << ":    " << correct << "   -   " << incorrect << endl;
+    }
+
+    for(char c = '0'; c <= 9; c++) {
+        int correct = stats["Letter Stats"][string(1, c)]["correct"].get<int>();
+        int incorrect = stats["Letter Stats"][string(1, c)]["incorrect"].get<int>();
+
+        cout << c << ":    " << correct << "   -   " << incorrect << endl;
+    }
+
+    const string special_characters = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/";
+    for(char c : special_characters) {
+        int correct = stats["Letter Stats"][string(1, c)]["correct"].get<int>();
+        int incorrect = stats["Letter Stats"][string(1, c)]["incorrect"].get<int>();
+
+        cout << c << ":    " << correct << "   -   " << incorrect << endl;
+    }
 }

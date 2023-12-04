@@ -118,7 +118,7 @@ void Database::stats() {
 
         }
         case 3: {
-            //reader.letterStats();
+            reader.letterstats();
             break;
         }
         case 4: {
