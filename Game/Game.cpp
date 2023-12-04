@@ -117,6 +117,8 @@ void Game::printAccuracyOfLetters(unordered_map<char, pair<int, int>>& map, int 
         char letter = entry.first;
         int correct = entry.second.first, incorrect = entry.second.second;
         double accuracy = static_cast<double>(correct) / static_cast<double>(correct + incorrect) * 100.0;
+
+        if(correct == 0 && incorrect == 0) continue; // cannot divide by 0
         (b) ? max_heap.push({accuracy, letter}) : min_heap.push({accuracy, letter});
     }
 

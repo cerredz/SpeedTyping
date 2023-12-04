@@ -110,15 +110,14 @@ void Database::stats() {
         cin >> choice;
     }
 
-    Game game; // need functions in game class for advanced stats
-
     switch(stoi(choice)) {
         case 1: {
             reader.general();
             break;
         }
         case 2: {
-            advanced(game);
+            advanced();
+            break;
         }
         case 3: {
             reader.letterstats();
@@ -144,7 +143,7 @@ void Database::stats() {
 }
 
 // displays the advanced stats of the lifetime stats of a player
-void Database::advanced(Game& game) {
+void Database::advanced() {
 
     json player_stats = reader.read("player_stats.json");
     json game_stats = reader.read("games.json");
@@ -157,6 +156,21 @@ void Database::advanced(Game& game) {
     unordered_map<char, pair<int, int>> characters_typed = reader.letters(player_stats);
     unordered_map<char, pair<vector<double>, vector<double>>> character_speeds = reader.speeds(game_stats);
 
+    Game helper; // need function in game class to get advanced stats
 
+    cout << "\n------------------------" << endl;
+    cout << "Advanced Game Stats" << endl;
+    cout << "------------------------\n" << endl;
+    helper.displayMostFrequentLetters(characters_typed, 5);
+    helper.printAccuracyOfLetters(characters_typed, 5, true);
+    helper.printAccuracyOfLetters(characters_typed, 5, false);
+    cout << "\n\n-----------------------------------" << endl;
+    cout << "Typing Speed Advanced Stats" << endl;
+    cout << "-----------------------------------\n" << endl;
+    helper.printSpeedStats(character_speeds);
+    cout << "\n\n-------------------------------------------" << endl;
+    cout << "Left vs Right Hand Advanced Stats" << endl;
+    cout << "-------------------------------------------" << endl;
+    helper.printHandStats(characters_typed, character_speeds);
     
 }

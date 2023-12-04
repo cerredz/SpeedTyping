@@ -8,6 +8,7 @@ using namespace std;
 class Game;  
 class Session;  
 
+// welcome message for Speed Typing
 void SpeedTyping::welcome() {
 
     cout << endl;
@@ -21,6 +22,15 @@ void SpeedTyping::welcome() {
     cout << "---------------------------------------------------------------------------------------------------------------" << endl;
     cout << "---------------------------------------------------------------------------------------------------------------\n" << endl;
 }
+
+// exit message for Speed Typing
+void SpeedTyping::exit() {
+    cout << "\n\n-------------------------------------------------------------------------------------------------------" << endl;
+    cout << "Thank you for showcasing your typing prowess in the realm of Speed Typing. We hope your journey through Speed Typing " << endl;
+    cout << "and keyboard mastery was filled with moments of learning, exhilaration, and accomplishment. Your keyboard adventure is a story worth" << endl;
+    cout << "telling, and while the sage of your tale has ended temporarily, the anticipation of future keystrokes awaits. Until our paths cross again," << endl;
+    cout << "may your typing skills stay dextereous, profiecient, and adept. \n\n" << endl;
+} 
 
 // explains to the user how the play the game
 void SpeedTyping::tutorial(bool& go_to_game) {
@@ -91,7 +101,6 @@ void SpeedTyping::play(WordList& prompt, Game& game, Session& session, Database&
                 game.postGameOptions(play_another_game);
 
                 if(play_another_game) goto play_game; // we want to stay in this case without going back to the start if the user wants to keep playing continuous games
-                
                 break;
             }
             case 2: 
@@ -104,11 +113,10 @@ void SpeedTyping::play(WordList& prompt, Game& game, Session& session, Database&
                 break;
             case 4: 
                 database.stats();
-                
                 break;
             case 5: {
                 // user wants to stop playing
-                cout << "Thank you for playing speed typing, until next time!!!\n" << endl;
+                exit();
                 playing = false;
                 break;
             }
