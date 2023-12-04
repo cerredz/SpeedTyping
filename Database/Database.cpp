@@ -90,6 +90,7 @@ void Database::updatePlayerStats(Game& game, WordList& prompt) {
     writer.write("player_stats.json", player_stats);
 }
 
+// displays the stat options for the lifetime stats of a player
 void Database::stats() {
     database_stats:
     string choice = "";
@@ -109,13 +110,15 @@ void Database::stats() {
         cin >> choice;
     }
 
+    Game game; // need functions in game class for advanced stats
+
     switch(stoi(choice)) {
         case 1: {
             reader.general();
             break;
         }
         case 2: {
-
+            advanced(game);
         }
         case 3: {
             reader.letterstats();
@@ -137,6 +140,23 @@ void Database::stats() {
     }
 
     if(choice == "yes") goto database_stats;
-    
 
+}
+
+// displays the advanced stats of the lifetime stats of a player
+void Database::advanced(Game& game) {
+
+    json player_stats = reader.read("player_stats.json");
+    json game_stats = reader.read("games.json");
+
+    if(player_stats.empty() || game_stats.empty()) {
+        cout << "Error: File/s Not Found. (Please Restart Program)" << endl;
+        return;
+    }
+
+    unordered_map<char, pair<int, int>> characters_typed = reader.letters(player_stats);
+    unordered_map<char, pair<vector<double>, vector<double>>> character_speeds = reader.speeds(game_stats);
+
+
+    
 }

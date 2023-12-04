@@ -11,6 +11,7 @@
 #include <queue>
 #include <iomanip>  
 
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -21,7 +22,8 @@ class DataReader {
         vector<string> initialize();
         json read(string filename);
         void updateLetterStats(unordered_map<char, pair<int, int>> characters_typed, json& stats);
-        unordered_map<char, pair<int, int>> letters( json& file);
+        unordered_map<char, pair<int, int>> letters(json& file);
+        unordered_map<char, pair<vector<double>, vector<double>>> speeds(json& file);
         float accuracy(unordered_map<char, pair<int, int>>& map);
         pair<double, char> accurate(unordered_map<char, pair<int, int>>& map);
         pair<int, char> frequent(unordered_map<char, pair<int, int>>& map);

@@ -94,6 +94,46 @@ unordered_map<char, pair<int, int>> DataReader::letters(json& file) {
     return result;
 }
 
+// return the speed stats of all games played
+unordered_map<char, pair<vector<double>, vector<double>>> DataReader::speeds(json& file) {
+    
+    json data = file["games_data"];
+    unordered_map<char, pair<vector<double>, vector<double>>> res;
+
+    if(data.empty()){
+        cout << "Error. Input Wrong File When Trying to get Speed Stats" << endl;
+        return res;
+    }
+
+    // loop through each game
+    for(const auto& game : data) {
+
+        json speed_data = game["speed_char_data"];
+        // loop through letters in each game
+        for(const auto& entry : speed_data.items()) {
+            char letter = entry.key()[0];
+            json correct_speeds = speed_data[string(1, letter)]["correct"];
+            json incorrect_speeds = speed_data[string(1, letter)]["incorrect"];
+
+            // loop through speeds for each correct speed
+            for(const auto& speed : correct_speeds.items()) {
+                double seconds = speed.value().get<double>();
+                res[letter].first.push_back(seconds);
+            }
+
+            // loop through speeds for each incorrect speed
+            for(const auto& speed : incorrect_speeds.items()) {
+                double seconds = speed.value().get<double>();
+                res[letter].second.push_back(seconds);
+            }
+        }
+
+    }
+
+    return res;
+
+}
+
 // given the letter stats, return the accuracy of the letters typed
 float DataReader::accuracy(unordered_map<char, pair<int, int>>& map) {
 
