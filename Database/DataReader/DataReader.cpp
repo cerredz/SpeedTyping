@@ -226,7 +226,7 @@ void DataReader::highscores() {
     cout << "High Scores: \n" << endl;
 
     cout << "Most Characters Typed: " << stats["High Scores"]["total_inputs"].get<int>() << endl;
-    cout << "Most Accurate Game: " << fixed << setprecision(2) << stats["High Scores"]["accuracy"].get<double>() << endl;
+    cout << "Most Accurate Game: " << fixed << setprecision(2) << stats["High Scores"]["accuracy"].get<double>() << "%" << endl;
     cout << "Longest Correct Character Streak: " << stats["High Scores"]["correct_character_streak"].get<int>() << endl;
     cout << "Longest Incorrect Character Streak: " << stats["High Scores"]["incorrect_character_streak"].get<int>() << endl;
     cout << "Fastest Game: " << stats["High Scores"]["fastest_game"].get<int>() << " seconds" << endl;

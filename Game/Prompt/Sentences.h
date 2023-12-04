@@ -22,6 +22,18 @@ extern vector<string> artSentences;
 extern vector<string> historicalSentences;
 extern vector<string> computerScienceSentences;
 extern vector<string> randomSentences;
+extern vector<string> f1Sentences;
+extern vector<string> originsOfHumanity;
+extern vector<string> universeSentences;
+extern vector<string> nbaSentences;
+extern vector<string> ufcSentences;
+extern vector<string> rapperSentences;
+extern vector<string> snackSentences;
+extern vector<string> shoppingSentences;
+extern vector<string> amusementParkSentences;
+extern vector<string> christmasSentences;
+extern vector<string> easterSentences;
+extern vector<string> thanksgivingSentences;
 
 extern vector<vector<string>> sentences;
 
