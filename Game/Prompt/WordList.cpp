@@ -39,8 +39,8 @@ string WordList::generatePrompt() {
     
     string prompt = "";
     srand((unsigned) time(NULL));
-    //int sentences_in_prompt = rand() % 4 + 4; // 4-7 sentences in the prompt
-    int sentences_in_prompt = 1; // used for debugging
+    int sentences_in_prompt = rand() % 4 + 4; // 4-7 sentences in the prompt
+    //int sentences_in_prompt = 1; // used for debugging
     int num_topics = sentences.size(); 
     unordered_set<int> used_sentence_topics;
 

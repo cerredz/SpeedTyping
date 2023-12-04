@@ -54,7 +54,6 @@ void DataReader::updateLetterStats(unordered_map<char, pair<int, int>> character
 
         // Check if the character exists in the JSON file
         if (stats["Letter Stats"].count(string(1, letter)) == 0) {
-            cout << letter << "does not exist" << endl;
             // If not, create it with "correct" and "incorrect" set to 0
             stats["Letter Stats"][string(1, letter)] = {
                 {"correct", 0},
@@ -171,7 +170,6 @@ pair<double, char> DataReader::accurate(unordered_map<char, pair<int, int>>& map
         heap.push({accuracy, letter});
     }
 
-    cout << heap.top().first << ": " << heap.top().second << endl;
     return heap.top();
 }
 
@@ -185,8 +183,6 @@ pair<int, char> DataReader::frequent(unordered_map<char, pair<int, int>>& map) {
         int incorrect = entry.second.second;
         heap.push({correct + incorrect, letter});
     }
-
-    cout << heap.top().first << ": " << heap.top().second << endl;
 
     return heap.top();
 }
@@ -206,12 +202,12 @@ void DataReader::general() {
     cout << "Games Played: " << stats["General Stats"]["games_played"].get<int>() << endl;
     cout << "Time Played: " << stats["General Stats"]["time_played"].get<int>() << " seconds" << endl;
     cout << "Average Game Length: " << stats["General Stats"]["average_game_length"].get<int>() << endl;
-    cout << "Accuracy: " << fixed << setprecision(2) << stats["General Stats"]["accuracy"].get<double>() << endl;
+    cout << "Accuracy: " << fixed << setprecision(2) << stats["General Stats"]["accuracy"].get<double>() << "%" << endl;
     cout << "Total Characters Typed: " << stats["General Stats"]["total_characters_typed"].get<int>() << endl;
     cout << "Total Words Typed: " << stats["General Stats"]["words_typed"].get<int>() << endl;
     cout << "Letters Per Minute: " << stats["General Stats"]["letters_per_minute"].get<int>() << endl;
     cout << "Words Per minute: " << stats["General Stats"]["words_per_minute"].get<int>() << endl;
-    cout << "Most Accurate Character: " << stats["General Stats"]["most_accurate_character"]["character"].get<string>() << " - " << stats["General Stats"]["most_accurate_character"]["accuracy"].get<double>() << endl;
+    cout << "Most Accurate Character: " << stats["General Stats"]["most_accurate_character"]["character"].get<string>() << " - " << stats["General Stats"]["most_accurate_character"]["accuracy"].get<double>() << "%" << endl;
     cout << "Most Frequent Character: " << stats["General Stats"]["most_frequent_character"]["character"].get<string>() <<  " - " << stats["General Stats"]["most_frequent_character"]["inputs"].get<int>() << endl;
     cout << endl;
 }
@@ -233,8 +229,8 @@ void DataReader::highscores() {
     cout << "Most Accurate Game: " << fixed << setprecision(2) << stats["High Scores"]["accuracy"].get<double>() << endl;
     cout << "Longest Correct Character Streak: " << stats["High Scores"]["correct_character_streak"].get<int>() << endl;
     cout << "Longest Incorrect Character Streak: " << stats["High Scores"]["incorrect_character_streak"].get<int>() << endl;
-    cout << "Fastest Game: " << stats["High Scores"]["fastest_game"].get<int>() << "seconds" << endl;
-    cout << "Slowest Game: " << stats["High Scores"]["slowest_game"].get<int>() << "seconds" << endl;
+    cout << "Fastest Game: " << stats["High Scores"]["fastest_game"].get<int>() << " seconds" << endl;
+    cout << "Slowest Game: " << stats["High Scores"]["slowest_game"].get<int>() << " seconds" << endl;
     cout << "Most Letters Per Minute: " << stats["High Scores"]["letters_per_minute"].get<int>() << endl;
     cout << "Most Words Per Minute: " << stats["High Scores"]["words_per_minute"].get<int>() << endl;
 

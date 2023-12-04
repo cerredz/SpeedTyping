@@ -1,36 +1,36 @@
 {
     "General Stats": {
-        "accuracy": 93.93000030517578,
-        "average_game_length": 9,
-        "games_played": 22,
+        "accuracy": 93.91000366210938,
+        "average_game_length": 14,
+        "games_played": 25,
         "letters_per_minute": 360,
         "most_accurate_character": {
             "accuracy": 100.0,
-            "character": "z"
+            "character": "q"
         },
         "most_frequent_character": {
             "character": "e",
-            "inputs": 129
+            "inputs": 225
         },
-        "time_played": 203,
-        "total_characters_typed": 1313,
+        "time_played": 351,
+        "total_characters_typed": 2269,
         "words_per_minute": 60,
-        "words_typed": 367
+        "words_typed": 624
     },
     "High Scores": {
-        "accuracy": 96.36363636363636,
-        "correct_character_streak": 28,
+        "accuracy": 98.50187265917603,
+        "correct_character_streak": 94,
         "fastest_game": 8,
         "incorrect_character_streak": 5,
-        "letters_per_minute": 401,
-        "slowest_game": 11,
-        "total_inputs": 71,
-        "words_per_minute": 125
+        "letters_per_minute": 427,
+        "slowest_game": 58,
+        "total_inputs": 360,
+        "words_per_minute": 149
     },
     "Letter Stats": {
         " ": {
             "correct": 0,
-            "incorrect": 3
+            "incorrect": 5
         },
         "!": {
             "correct": 0,
@@ -81,12 +81,12 @@
             "incorrect": 0
         },
         "-": {
-            "correct": 2,
+            "correct": 3,
             "incorrect": 0
         },
         ".": {
-            "correct": 22,
-            "incorrect": 1
+            "correct": 39,
+            "incorrect": 2
         },
         "/": {
             "correct": 0,
@@ -160,6 +160,10 @@
             "correct": 0,
             "incorrect": 0
         },
+        "C": {
+            "correct": 0,
+            "incorrect": 1
+        },
         "D": {
             "correct": 0,
             "incorrect": 1
@@ -181,108 +185,108 @@
             "incorrect": 0
         },
         "a": {
-            "correct": 95,
-            "incorrect": 1
+            "correct": 150,
+            "incorrect": 8
         },
         "b": {
-            "correct": 15,
+            "correct": 21,
             "incorrect": 2
         },
         "c": {
-            "correct": 42,
-            "incorrect": 1
-        },
-        "d": {
-            "correct": 37,
-            "incorrect": 0
-        },
-        "e": {
-            "correct": 122,
+            "correct": 80,
             "incorrect": 7
         },
+        "d": {
+            "correct": 68,
+            "incorrect": 4
+        },
+        "e": {
+            "correct": 215,
+            "incorrect": 10
+        },
         "f": {
-            "correct": 20,
-            "incorrect": 1
+            "correct": 37,
+            "incorrect": 3
         },
         "g": {
-            "correct": 27,
-            "incorrect": 1
+            "correct": 52,
+            "incorrect": 2
         },
         "h": {
-            "correct": 37,
+            "correct": 57,
             "incorrect": 3
         },
         "i": {
-            "correct": 95,
-            "incorrect": 3
+            "correct": 161,
+            "incorrect": 4
         },
         "j": {
-            "correct": 0,
+            "correct": 1,
             "incorrect": 0
         },
         "k": {
-            "correct": 8,
+            "correct": 16,
             "incorrect": 1
         },
         "l": {
-            "correct": 47,
+            "correct": 82,
             "incorrect": 0
         },
         "m": {
-            "correct": 40,
+            "correct": 57,
             "incorrect": 1
         },
         "n": {
-            "correct": 87,
-            "incorrect": 4
+            "correct": 148,
+            "incorrect": 8
         },
         "o": {
-            "correct": 68,
-            "incorrect": 2
+            "correct": 118,
+            "incorrect": 3
         },
         "p": {
-            "correct": 28,
+            "correct": 41,
             "incorrect": 2
         },
         "q": {
-            "correct": 0,
+            "correct": 1,
             "incorrect": 0
         },
         "r": {
-            "correct": 63,
-            "incorrect": 5
+            "correct": 113,
+            "incorrect": 8
         },
         "s": {
-            "correct": 73,
+            "correct": 115,
             "incorrect": 3
         },
         "t": {
-            "correct": 71,
-            "incorrect": 5
-        },
-        "u": {
-            "correct": 28,
-            "incorrect": 6
-        },
-        "v": {
-            "correct": 14,
+            "correct": 124,
             "incorrect": 8
         },
+        "u": {
+            "correct": 58,
+            "incorrect": 7
+        },
+        "v": {
+            "correct": 22,
+            "incorrect": 14
+        },
         "w": {
-            "correct": 9,
+            "correct": 24,
             "incorrect": 1
         },
         "x": {
-            "correct": 5,
-            "incorrect": 4
+            "correct": 8,
+            "incorrect": 6
         },
         "y": {
-            "correct": 8,
-            "incorrect": 1
+            "correct": 17,
+            "incorrect": 2
         },
         "z": {
-            "correct": 1,
-            "incorrect": 0
+            "correct": 2,
+            "incorrect": 1
         },
         "{": {
             "correct": 0,
