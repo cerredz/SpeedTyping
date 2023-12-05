@@ -1,0 +1,3 @@
+# Speed Typing Overview 🚄
+
+Speed Typing is a game designed to help players increase their typing speed and accuracy. Developed using c++, Speed Typing tracks essential typing data (characters typed, speed of typing, accuracy, etc) when you are playing. This data, after every game played, is stored in a JSON file; serving as a database and a way for user progress to be saved.This stored information is then used for to generate both general and advanced performance related metrics. Whether you're interested in game stats, session stats, or lifetime stats, Speed Typing has the capabiltiy of providing a detailed analysis of all three.
