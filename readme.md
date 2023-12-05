@@ -17,11 +17,11 @@ g++ Game/Prompt/WordList.cpp Game/Prompt/Sentences.cpp Game/Game.cpp Session/Ses
 ./main
 ```
 
-**Note:**After completing all of the above steps and exiting the program, whenever you want to start the program again all u have to do is complete step 3 and dont worry about steps 1 and 2 \*
+**Note:** After completing all of the above steps and exiting the program, whenever you want to start the program again all u have to do is complete step 3 and dont worry about steps 1 and 2 \*
 
 ## Features
 
-**Real-Time Feedback:** Capability to view realtime feeback on accuracy, speed, and all other overall typing stats after playing a game to help improve your typing skills.
-**Comprehensive Stats:**Ability to see both general and advanced stats ranging from accuracy, most frequent character, games played, words per minute to speed stats, most / least accurate characters, left vs right hand typing stats, and many more.
-**Database Management:**Data from all games played is stored in a JSON file, functioning as a database to save user progress and enable a seamless continuation of a users typing journey.
-**Interactive Menu System:**User-friendly interface with interactive menus for easy navigation between playing games, viewing tutorials, looking at stats, and exiting the program.
+**Real-Time Feedback:** Capability to view real-time feedback on accuracy, speed, and all other overall typing stats after playing a game to help improve your typing skills.  
+**Comprehensive Stats:** Ability to see both general and advanced stats ranging from accuracy, most frequent character, games played, words per minute to speed stats, most / least accurate characters, left vs right hand typing stats, and many more.  
+**Database Management:** Data from all games played is stored in a JSON file, functioning as a database to save user progress and enable a seamless continuation of a user's typing journey.  
+**Interactive Menu System:** User-friendly interface with interactive menus for easy navigation between playing games, viewing tutorials, looking at stats, and exiting the program.
