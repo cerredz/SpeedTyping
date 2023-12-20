@@ -5,13 +5,14 @@ Speed Typing is a game designed to help players increase their typing speed and 
 ## Setup 🖱️
 
 1. Clone the Speed Typing repository
-2. In the directory you cloned the repository, run the following command in the terminal:
+2. Delete the player_stats.json and games.json files, these files represent my stats, and you must delete them in order for SpeedTyping to accuractely represent your stats.  
+3. In the directory you cloned the repository, run the following command in the terminal: 
 
 ```bash
 g++ Game/Prompt/WordList.cpp Game/Prompt/Sentences.cpp Game/Game.cpp Session/Session.cpp SpeedTyping.cpp Database/Database.cpp Database/DataReader/DataReader.cpp Database/DataWriter/DataWriter.cpp main.cpp -o main
 ```
 
-3. After running the above command, run the following command in the terminal:
+4. After running the above command, run the following command in the terminal: (the json files will be created)
 
 ```bash
 ./main
